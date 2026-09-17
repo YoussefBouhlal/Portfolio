@@ -1,0 +1,21 @@
+{
+	"name": "portfolio",
+	"version": "1.0.0",
+	"author": "Youssef Bouhlal",
+	"license": "GPL-2.0-or-later",
+	"scripts": {
+		"start": "wp-scripts start src/js/*.js",
+		"build": "wp-scripts build src/js/*.js",
+		"lint:js": "wp-scripts lint-js ./src",
+		"lint:css": "wp-scripts lint-style './src/**/*.scss'",
+		"lint:json": "wp-scripts lint-pkg-json ./src",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^30.22.0"
+	},
+	"dependencies": {
+		"gsap": "^3.14.2"
+	}
+}
