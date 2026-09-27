@@ -4,63 +4,49 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Portfolio of Youssef Bouhlal, a creative developer specializing in web interfaces and digital experiences.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="./build/main.css">
 	<title>Youssef Bouhlal — Creative Developer</title>
 </head>
 <body id="top">
 	<a class="skip-link" href="#content">Skip to content</a>
 
+	<header class="site-header">
+		<span class="site-header__logo">
+			<svg width="30px" height="30px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248.7 271.2" fill="#191919">
+				<circle cx="60.2" cy="213.3" r="56" fill="#f5f4f0"/>
+				<polygon points="189.9,3.5 155.5,59.6 121.4,3.7 121.3,3.5 104.6,3.5 147.6,74.1 147.6,118.5 163.3,118.5 163.3,74.1 206.3,4 206.6,3.5"/>
+				<path d="M194.9,170.6L194.9,170.6c-12.8,0-24,4.8-31.9,12.8v-44h-15.1v119.4h12l1.8-12.3c8,8.8,19.7,14.2,33.2,14.2c26,0,44.5-19.3,44.5-45C239.4,189.7,220.9,170.6,194.9,170.6z M193.9,247.2c-18,0-31.5-13.6-31.5-31.6c0-18,13.5-31.6,31.5-31.6c18.2,0,31.3,13.3,31.3,31.6C225.2,233.9,212,247.2,193.9,247.2z"/>
+			</svg>
+		</span>
+		<p class="site-header__role">Creative Developer</p>
+		<a class="site-header__contact" href="mailto:pro.youssef.bouhlal@gmail.com">Let’s talk</a>
+	</header>
+
 	<main id="content">
 		<div class="presentation">
+			<div class="circle" aria-hidden="true"></div>
 
-			<section class="hero" aria-labelledby="hero-title">
+			<div class="box" aria-hidden="true"></div>
+
+			<section class="hero section" aria-labelledby="hero-title">
 				<div class="hero__screen">
-					<header class="hero__bar">
-						<a class="hero__mark" href="#top" aria-label="Youssef Bouhlal, home">
-							<span>Y</span>
-							<span>B</span>
-						</a>
-						<p>Creative Developer</p>
-						<a class="hero__contact" href="mailto:hello@youssefbouhlal.com">Let’s talk</a>
-					</header>
-
 					<div class="hero__slide">
 						<div class="hero__copy">
-							<p class="hero__eyebrow">Portfolio / 2026</p>
+							<p class="hero__eyebrow">Portfolio</p>
 							<h1 id="hero-title">
-								<span>Youssef</span>
-								<span>Bouhlal</span>
+								<span class="hero__name-line">Youssef</span>
+								<span class="hero__name-line hero__name-line--outline">Bouhlal</span>
 							</h1>
 							<p class="hero__role">Creative developer &amp; digital designer</p>
 						</div>
-
-						<div class="hero__index" aria-hidden="true">
-							<span>01</span>
-							<span>Selected work</span>
-						</div>
-
-						<div class="hero__accent hero__accent--one" aria-hidden="true"></div>
-						<div class="hero__accent hero__accent--two" aria-hidden="true"></div>
 					</div>
-
-					<p class="hero__footer">Web experiences shaped with clarity, motion and character.</p>
 				</div>
-
-				<a class="hero__scroll" href="#selected-work">
-					<span>Scroll to explore</span>
-					<span aria-hidden="true">↓</span>
-				</a>
 			</section>
 
-			<section class="team" id="selected-work" aria-labelledby="team-title">
-				<header class="team__header">
-					<span>02</span>
-					<p>Creative Brand</p>
-					<span>Portfolio / 2026</span>
-				</header>
-
-				<div class="team__arch" aria-hidden="true"></div>
-
+			<section class="team section" id="selected-work" aria-labelledby="team-title">
 				<div class="team__grid">
 					<article class="team-member">
 						<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=640&amp;q=85" alt="" loading="lazy">
@@ -91,7 +77,34 @@
 					<h2 id="team-title">Our Team</h2>
 				</div>
 			</section>
-			
+
+			<section class="about section" id="about" aria-labelledby="about-title">
+				<div class="about__portrait-card">
+					<img
+						class="about__portrait"
+						src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+						width="1200"
+						height="1500"
+						alt=""
+						loading="lazy"
+						decoding="async"
+					>
+				</div>
+
+				<div class="about__content">
+					<div class="about__dots" aria-hidden="true">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<h2 class="about__title" id="about-title">Welcome</h2>
+					<div class="about__copy">
+						<h3>About Us</h3>
+						<p>We create clear identities, expressive motion and thoughtful web experiences that bring ideas to life with purpose.</p>
+					</div>
+				</div>
+			</section>
+
 		</div>
 	</main>
 

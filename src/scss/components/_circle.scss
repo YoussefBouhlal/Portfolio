@@ -1,0 +1,14 @@
+.circle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 120vmax;
+	height: 120vmax;
+	border-radius: 50%;
+	background: $color-circle;
+	pointer-events: none;
+	transform: translate(30vw, calc((100svh - 120vmax) / 2));
+	transform-origin: center;
+	will-change: transform, width, height;
+}

@@ -1,0 +1,14 @@
+.presentation {
+	position: relative;
+	isolation: isolate;
+	height: 100svh;
+	overflow: hidden;
+
+	.section {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100svh;
+		min-height: 0;
+	}
+}

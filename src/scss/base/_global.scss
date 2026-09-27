@@ -1,0 +1,24 @@
+html {
+	scroll-behavior: auto;
+}
+
+body {
+	min-width: 20rem;
+	margin: 0;
+	overflow-x: hidden;
+	background: $color-page-background;
+	font-family: $font-body;
+
+	--hero-padding-top: clamp(1.1rem, 2vw, 2rem);
+	--hero-padding-inline: clamp(1.2rem, 3.5vw, 4rem);
+	--hero-padding-bottom: clamp(1.3rem, 2.5vw, 2.5rem);
+
+	@include mobile {
+		--hero-padding-top: clamp(1rem, 4vw, 1.5rem);
+	}
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
