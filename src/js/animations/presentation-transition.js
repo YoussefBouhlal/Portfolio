@@ -37,14 +37,13 @@ export function initPresentationTransition() {
 		return;
 	}
 
-	const circle        = document.querySelector( '.circle' );
+	const circle        = presentation.querySelector( '.circle' );
 	const box           = presentation.querySelector( '.box' );
 	const heroPanel     = presentation.querySelector( '.hero__slide' );
 	const titleBand     = presentation.querySelector( '.team__title-band' );
 	const about         = presentation.querySelector( '.about' );
 	const aboutCard     = presentation.querySelector( '.about__portrait-card' );
 	const aboutPortrait = presentation.querySelector( '.about__portrait' );
-	const aboutDots     = presentation.querySelector( '.about__dots' );
 	const aboutTitle    = presentation.querySelector( '.about__title' );
 	const aboutCopy     = presentation.querySelector( '.about__copy' );
 
@@ -77,12 +76,6 @@ export function initPresentationTransition() {
 		scale: 1,
 	} );
 
-	document.documentElement.classList.add( 'has-scroll-animation' );
-	
-
-
-	gsap.set( '.team', { backgroundColor: 'rgba(172, 210, 235, 0)' } );
-	gsap.set( about, { pointerEvents: 'none' } );
 	const members = gsap.utils.toArray( '.team-member' );
 	gsap.set( members, {
 		autoAlpha: 0,
@@ -90,12 +83,16 @@ export function initPresentationTransition() {
 		yPercent: ( index ) => ( index % 2 === 0 ? -12 : 12 ),
 		scale: 0.82,
 	} );
-	gsap.set( '.team__title-band', { autoAlpha: 0, yPercent: 110 } );
+
+	gsap.set( titleBand, { autoAlpha: 0, yPercent: 110 } );
+
 	gsap.set( aboutPortrait, { autoAlpha: 0, y: 24, scale: 0.96 } );
-	gsap.set( aboutDots, { autoAlpha: 0, y: -14 } );
+
 	gsap.set( aboutTitle, { autoAlpha: 0, x: 48 } );
+
 	gsap.set( aboutCopy, { autoAlpha: 0, y: 24 } );
 
+	document.documentElement.classList.add( 'has-scroll-animation' );
 	
 	// Initialize the presentation transition timeline.
 	const transition = gsap.timeline( {
@@ -145,13 +142,11 @@ export function initPresentationTransition() {
 	.to(
 		circle,
 		{
-			x: 0,
-			y: 0,
-			width: () => window.innerWidth * 0.25,
-			height: () => window.innerHeight,
+			x: () => -getInitialCircleDiameter * 0.8,
+			y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
+			width: getInitialCircleDiameter,
+			height: getInitialCircleDiameter,
 			scale: 1,
-			duration: 2.05,
-			ease: 'power1.inOut',
 		},
 		2.4
 	);
@@ -293,7 +288,6 @@ export function initPresentationTransition() {
 			{ autoAlpha: 1, y: 0, scale: 1, duration: 0.85 },
 			3.05
 		)
-		.to( aboutDots, { autoAlpha: 1, y: 0, duration: 0.45 }, 3.2 )
 		.to( aboutTitle, { autoAlpha: 1, x: 0, duration: 0.9 }, 3.25 )
 		.to( aboutCopy, { autoAlpha: 1, y: 0, duration: 0.8 }, 3.55 )
 		.set( '.team', { pointerEvents: 'none' }, 4.5 )

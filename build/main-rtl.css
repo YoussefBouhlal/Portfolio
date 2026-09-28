@@ -415,22 +415,6 @@ a {
   flex-direction: column;
   justify-content: center;
 }
-.about__dots {
-  position: absolute;
-  top: clamp(2rem, 6vh, 4rem);
-  right: clamp(1.5rem, 3vw, 3rem);
-  display: flex;
-  gap: 0.45rem;
-}
-.about__dots span {
-  width: clamp(0.55rem, 0.8vw, 0.8rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-}
-.about__dots span:first-child {
-  background: #17679e;
-}
 .about__title {
   margin: 0 0 clamp(1rem, 2vh, 1.6rem);
   color: #fff;
@@ -475,11 +459,6 @@ a {
     height: 100svh;
     padding: 55vh 0.2rem 2rem;
     justify-content: flex-start;
-  }
-  .about__dots {
-    top: 1rem;
-    right: 50%;
-    transform: translateX(50%);
   }
   .about__title {
     margin-bottom: 0.8rem;

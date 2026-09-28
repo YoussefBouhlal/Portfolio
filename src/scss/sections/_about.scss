@@ -39,25 +39,6 @@
 		justify-content: center;
 	}
 
-	&__dots {
-		position: absolute;
-		top: clamp(2rem, 6vh, 4rem);
-		left: clamp(1.5rem, 3vw, 3rem);
-		display: flex;
-		gap: 0.45rem;
-
-		span {
-			width: clamp(0.55rem, 0.8vw, 0.8rem);
-			aspect-ratio: 1;
-			border-radius: 50%;
-			background: rgba(255, 255, 255, 0.55);
-
-			&:first-child {
-				background: #17679e;
-			}
-		}
-	}
-
 	&__title {
 		margin: 0 0 clamp(1rem, 2vh, 1.6rem);
 		color: #fff;
@@ -109,12 +90,6 @@
 			height: 100svh;
 			padding: 55vh 0.2rem 2rem;
 			justify-content: flex-start;
-		}
-
-		&__dots {
-			top: 1rem;
-			left: 50%;
-			transform: translateX(-50%);
 		}
 
 		&__title {
