@@ -1,3 +1,8 @@
 @mixin mobile {
-    @media (max-width: 768px) { @content; }
+    @media (max-width: 48rem) { @content; }
+}
+
+
+@mixin mobile-short {
+	@media (max-width: 48rem) and (max-height: 40rem) { @content; }
 }

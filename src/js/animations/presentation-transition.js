@@ -39,7 +39,9 @@ export function initPresentationTransition() {
 
 	const circle        = presentation.querySelector( '.circle' );
 	const box           = presentation.querySelector( '.box' );
+	const hero          = presentation.querySelector( '.hero' );
 	const heroPanel     = presentation.querySelector( '.hero__slide' );
+	const heroCopy      = presentation.querySelector( '.hero__copy' );
 	const titleBand     = presentation.querySelector( '.team__title-band' );
 	const about         = presentation.querySelector( '.about' );
 	const aboutCard     = presentation.querySelector( '.about__portrait-card' );
@@ -108,117 +110,115 @@ export function initPresentationTransition() {
 		},
 	} );
 
+	// Circle.
 	transition
-	.set(
-		circle,
-		circleInitialSetup,
-		0
-	)
-	.to(
-		circle,
-		{
-			x: () =>
-				window.innerWidth *
-				( window.matchMedia( '(max-width: 48rem)' ).matches
-					? -0.45
-					: -0.1 ),
-			y: () => window.innerHeight * 0.25,
-			width: () =>
-				window.innerWidth *
-				( window.matchMedia( '(max-width: 48rem)' ).matches
-					? 1.9
-					: 1.2 ),
-			height: () =>
-				window.innerWidth *
-				( window.matchMedia( '(max-width: 48rem)' ).matches
-					? 1.9
-					: 1.2 ),
-			scale: 1,
-			duration: 2.05,
-			ease: 'power1.inOut',
-		},
-		0.1
-	)
-	.to(
-		circle,
-		{
-			x: () => -getInitialCircleDiameter * 0.8,
-			y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
-			width: getInitialCircleDiameter,
-			height: getInitialCircleDiameter,
-			scale: 1,
-		},
-		2.4
-	);
+		.set(
+			circle,
+			circleInitialSetup,
+			0
+		)
+		.to(
+			circle,
+			{
+				x: () =>
+					window.innerWidth *
+					( window.matchMedia( '(max-width: 48rem)' ).matches
+						? -0.45
+						: -0.1 ),
+				y: () => window.innerHeight * 0.25,
+				width: () =>
+					window.innerWidth *
+					( window.matchMedia( '(max-width: 48rem)' ).matches
+						? 1.9
+						: 1.2 ),
+				height: () =>
+					window.innerWidth *
+					( window.matchMedia( '(max-width: 48rem)' ).matches
+						? 1.9
+						: 1.2 ),
+				scale: 1,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			0.1
+		)
+		.to(
+			circle,
+			{
+				x: () => -getInitialCircleDiameter * 0.8,
+				y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
+				width: getInitialCircleDiameter,
+				height: getInitialCircleDiameter,
+				scale: 1,
+			},
+			2.4
+		);
 
+	// Box.
 	transition
-	.set(
-		box,
-		{
-			x: () => getRelativeBounds( heroPanel, presentation ).x,
-			y: () => getRelativeBounds( heroPanel, presentation ).y,
-			width: () => getRelativeBounds( heroPanel, presentation ).width,
-			height: () =>
-				getRelativeBounds( heroPanel, presentation ).height,
-			'--box-overlay-opacity': 1,
-			borderRadius: () =>
-				window.getComputedStyle( heroPanel ).borderRadius,
-			boxShadow: heroBoxShadow,
-			rotation: 0,
-			scale: 1,
-			zIndex: 1,
-		},
-		0
-	)
-	.to(
-		box,
-		{
-			x: () => getRelativeBounds( titleBand, presentation ).x,
-			y: () => getRelativeBounds( titleBand, presentation ).y,
-			width: () => getRelativeBounds( titleBand, presentation ).width,
-			height: () =>
-				getRelativeBounds( titleBand, presentation ).height,
-			'--box-overlay-opacity': 0,
-			borderRadius: () =>
-				window.getComputedStyle( titleBand ).borderRadius,
-			boxShadow: teamBoxShadow,
-			rotation: () =>
-				window.matchMedia( '(max-width: 48rem)' ).matches ? 1 : 1.1,
-			scale: 1.02,
-			duration: 2.05,
-			ease: 'power1.inOut',
-		},
-		0.1
-	)
-	.set( box, { zIndex: 3 }, 1.2 )
-	.to(
-		box,
-		{
-			x: () => getRelativeBounds( aboutCard, presentation ).x,
-			y: () => getRelativeBounds( aboutCard, presentation ).y,
-			width: () => getRelativeBounds( aboutCard, presentation ).width,
-			height: () =>
-				getRelativeBounds( aboutCard, presentation ).height,
-			borderRadius: () =>
-				window.getComputedStyle( aboutCard ).borderRadius,
-			boxShadow: aboutBoxShadow,
-			rotation: 0,
-			scale: 1,
-			duration: 2.05,
-			ease: 'power1.inOut',
-		},
-		2.4
-	);
+		.set(
+			box,
+			{
+				x: () => getRelativeBounds( heroPanel, presentation ).x,
+				y: () => getRelativeBounds( heroPanel, presentation ).y,
+				width: () => getRelativeBounds( heroPanel, presentation ).width,
+				height: () =>
+					getRelativeBounds( heroPanel, presentation ).height,
+				'--box-overlay-opacity': 1,
+				borderRadius: () =>
+					window.getComputedStyle( heroPanel ).borderRadius,
+				boxShadow: heroBoxShadow,
+				rotation: 0,
+				scale: 1,
+				zIndex: 1,
+			},
+			0
+		)
+		.to(
+			box,
+			{
+				x: () => getRelativeBounds( titleBand, presentation ).x,
+				y: () => getRelativeBounds( titleBand, presentation ).y,
+				width: () => getRelativeBounds( titleBand, presentation ).width,
+				height: () =>
+					getRelativeBounds( titleBand, presentation ).height,
+				'--box-overlay-opacity': 0,
+				borderRadius: () =>
+					window.getComputedStyle( titleBand ).borderRadius,
+				boxShadow: teamBoxShadow,
+				rotation: () =>
+					window.matchMedia( '(max-width: 48rem)' ).matches ? 1 : 1.1,
+				scale: 1.02,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			0.1
+		)
+		.set( box, { zIndex: 3 }, 1.2 )
+		.to(
+			box,
+			{
+				x: () => getRelativeBounds( aboutCard, presentation ).x,
+				y: () => getRelativeBounds( aboutCard, presentation ).y,
+				width: () => getRelativeBounds( aboutCard, presentation ).width,
+				height: () =>
+					getRelativeBounds( aboutCard, presentation ).height,
+				borderRadius: () =>
+					window.getComputedStyle( aboutCard ).borderRadius,
+				boxShadow: aboutBoxShadow,
+				rotation: 0,
+				scale: 1,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			2.4
+		);
 
-
-
-
-	
-
+	// Hero.
 	transition
 		.addLabel( 'hero', 0 )
 		.to(
-			'.hero__copy',
+			heroCopy,
 			{
 				autoAlpha: 0,
 				y: -24,
@@ -227,6 +227,10 @@ export function initPresentationTransition() {
 			},
 			0.15
 		)
+		.to( hero, { autoAlpha: 0, duration: 0.4 }, 1.2 );
+
+	// Team.
+	transition
 		.to(
 			members[ 0 ],
 			{
@@ -271,9 +275,8 @@ export function initPresentationTransition() {
 			},
 			1.02
 		)
-		.to( '.hero', { autoAlpha: 0, duration: 0.4 }, 1.2 )
 		.to(
-			'.team__title-band',
+			titleBand,
 			{ autoAlpha: 1, yPercent: 0, duration: 0.75 },
 			1.55
 		)
@@ -283,6 +286,10 @@ export function initPresentationTransition() {
 			{ autoAlpha: 0, y: -20, duration: 0.6 },
 			2.35
 		)
+		.set( '.team', { pointerEvents: 'none' }, 4.5 );
+
+	// About.
+	transition
 		.to(
 			aboutPortrait,
 			{ autoAlpha: 1, y: 0, scale: 1, duration: 0.85 },
@@ -290,9 +297,8 @@ export function initPresentationTransition() {
 		)
 		.to( aboutTitle, { autoAlpha: 1, x: 0, duration: 0.9 }, 3.25 )
 		.to( aboutCopy, { autoAlpha: 1, y: 0, duration: 0.8 }, 3.55 )
-		.set( '.team', { pointerEvents: 'none' }, 4.5 )
 		.set( about, { pointerEvents: 'auto' }, 4.6 )
 		.addLabel( 'about', 4.6 );
 
-	const sceneNavigation = initSceneNavigation( transition );
+	initSceneNavigation( transition );
 }

@@ -5,6 +5,10 @@
 	background: #acd2eb;
 	color: $color-text;
 
+	@include mobile {
+		padding: 1.25rem;
+	}
+
 	&__portrait-card {
 		position: absolute;
 		top: 11%;
@@ -14,8 +18,16 @@
 		aspect-ratio: 4 / 5;
 		padding: clamp(1rem, 1.6vw, 1.5rem);
 		border-radius: clamp(2rem, 3.5vw, 3.5rem);
-		// background: #f8f7f4;
-		// box-shadow: 0 1.8rem 3.5rem rgba(47, 76, 98, 0.18);
+		background: #f8f7f4;
+		box-shadow: 0 1.8rem 3.5rem rgba(47, 76, 98, 0.18);
+
+		@include mobile {
+			top: 8%;
+			left: calc(50% - min(27.5vw, 7rem));
+			width: min(55vw, 14rem);
+			padding: 0.75rem;
+			border-radius: 2rem;
+		}
 	}
 
 	&__portrait {
@@ -25,6 +37,10 @@
 		border-radius: clamp(1.4rem, 2.6vw, 2.6rem);
 		object-fit: cover;
 		object-position: center 35%;
+
+		@include mobile {
+			border-radius: 1.4rem;
+		}
 	}
 
 	&__content {
@@ -37,6 +53,13 @@
 		padding: 25vh clamp(2rem, 5vw, 5rem) 7vh clamp(1.5rem, 3vw, 3rem);
 		flex-direction: column;
 		justify-content: center;
+
+		@include mobile {
+			width: 100%;
+			height: 100svh;
+			padding: 55vh 0.2rem 2rem;
+			justify-content: flex-start;
+		}
 	}
 
 	&__title {
@@ -48,67 +71,41 @@
 		letter-spacing: 0;
 		line-height: 0.78;
 		text-transform: uppercase;
+
+		@include mobile {
+			margin-bottom: 0.8rem;
+			font-size: clamp(3.1rem, 17vw, 5rem);
+			line-height: 0.82;
+			text-align: center;
+		}
 	}
 
 	&__copy {
 		max-width: 35rem;
+
+		@include mobile {
+			max-width: 24rem;
+			margin: 0 auto;
+			text-align: center;
+		}
 
 		h3 {
 			margin: 0 0 0.65rem;
 			font-family: $font-heading;
 			font-size: clamp(1.4rem, 2vw, 2rem);
 			letter-spacing: 0;
+
+			@include mobile {
+				font-size: 1.2rem;
+			}
 		}
 
 		p {
 			margin: 0;
 			font-size: clamp(0.86rem, 1.1vw, 1.05rem);
 			line-height: 1.55;
-		}
-	}
-}
 
-@media (max-width: 48rem) {
-
-	.about {
-		padding: 1.25rem;
-
-		&__portrait-card {
-			top: 8%;
-			left: calc(50% - min(27.5vw, 7rem));
-			width: min(55vw, 14rem);
-			padding: 0.75rem;
-			border-radius: 2rem;
-		}
-
-		&__portrait {
-			border-radius: 1.4rem;
-		}
-
-		&__content {
-			width: 100%;
-			height: 100svh;
-			padding: 55vh 0.2rem 2rem;
-			justify-content: flex-start;
-		}
-
-		&__title {
-			margin-bottom: 0.8rem;
-			font-size: clamp(3.1rem, 17vw, 5rem);
-			line-height: 0.82;
-			text-align: center;
-		}
-
-		&__copy {
-			max-width: 24rem;
-			margin: 0 auto;
-			text-align: center;
-
-			h3 {
-				font-size: 1.2rem;
-			}
-
-			p {
+			@include mobile {
 				font-size: clamp(0.72rem, 3.4vw, 0.9rem);
 				line-height: 1.45;
 			}

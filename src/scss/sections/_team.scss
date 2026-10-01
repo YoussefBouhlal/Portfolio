@@ -4,6 +4,15 @@
 	overflow: hidden;
 	padding: clamp(1.4rem, 2.5vw, 2.5rem) clamp(1.25rem, 5vw, 5rem) 0;
 
+	@include mobile {
+		min-height: 100svh;
+		padding: 1.4rem 1.2rem 0;
+	}
+
+	@include mobile-short {
+		padding-top: 1rem;
+	}
+
 	&__grid {
 		position: absolute;
 		top: 50%;
@@ -17,6 +26,17 @@
 		max-width: 80rem;
 		margin: 0 auto;
 		transform: translateY(-50%);
+
+		@include mobile {
+			right: 1.2rem;
+			left: 1.2rem;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 3rem 1rem;
+		}
+
+		@include mobile-short {
+			gap: 1.5rem 0.75rem;
+		}
 	}
 
 	&__title-band {
@@ -29,48 +49,11 @@
 		min-height: clamp(8rem, 21vh, 12rem);
 		place-items: center;
 		transform: rotate(1.1deg) scale(1.02);
-		// background: rgba(250, 249, 246, 0.96);
+		background: rgba(250, 249, 246, 0.96);
 		box-shadow: 0 -1.5rem 3rem rgba(63, 80, 93, 0.12);
 		border-radius: 30px;
 
-		h2 {
-			margin: 0;
-			font-family: $font-heading;
-			font-size: clamp(3.4rem, 7vw, 7.2rem);
-			font-weight: 700;
-			letter-spacing: 0;
-			line-height: 0.9;
-			text-transform: uppercase;
-		}
-	}
-}
-
-@media (max-width: 48rem) {
-
-	.team {
-		min-height: 100svh;
-		padding: 1.4rem 1.2rem 0;
-
-		&__header {
-			grid-template-columns: 1fr auto;
-
-			span:first-child {
-				display: none;
-			}
-
-			span:last-child {
-				display: none;
-			}
-		}
-
-		&__grid {
-			right: 1.2rem;
-			left: 1.2rem;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 3rem 1rem;
-		}
-
-		&__title-band {
+		@include mobile {
 			position: absolute;
 			right: 1rem;
 			bottom: 1rem;
@@ -79,27 +62,26 @@
 			min-height: clamp(5.5rem, 18vh, 8rem);
 			margin: 0;
 			transform: rotate(1deg) scale(1.02);
-
-			h2 {
-				font-size: clamp(3.2rem, 17vw, 4.8rem);
-			}
-		}
-	}
-}
-
-@media (max-width: 48rem) and (max-height: 40rem) {
-
-	.team {
-		padding-top: 1rem;
-
-		&__grid {
-			gap: 1.5rem 0.75rem;
 		}
 
-		&__title-band {
+		@include mobile-short {
 			min-height: 4.75rem;
+		}
 
-			h2 {
+		h2 {
+			margin: 0;
+			font-family: $font-heading;
+			font-size: clamp(3.4rem, 5vw, 5.2rem);
+			font-weight: 700;
+			letter-spacing: 0;
+			line-height: 0.9;
+			text-transform: uppercase;
+
+			@include mobile {
+				font-size: clamp(3.2rem, 5vw, 4.8rem);
+			}
+
+			@include mobile-short {
 				font-size: clamp(2.8rem, 15vw, 3.6rem);
 			}
 		}
