@@ -31,30 +31,36 @@ function getRelativeBounds( element, ancestor ) {
 }
 
 export function initPresentationTransition() {
+	
 	const presentation = document.querySelector( '.presentation' );
-
 	if ( ! presentation ) {
 		return;
 	}
 
-	const circle        = presentation.querySelector( '.circle' );
-	const box           = presentation.querySelector( '.box' );
-	const hero          = presentation.querySelector( '.hero' );
-	const heroPanel     = presentation.querySelector( '.hero__slide' );
-	const heroCopy      = presentation.querySelector( '.hero__copy' );
-	const titleBand     = presentation.querySelector( '.team__title-band' );
-	const about         = presentation.querySelector( '.about' );
-	const aboutCard     = presentation.querySelector( '.about__portrait-card' );
-	const aboutPortrait = presentation.querySelector( '.about__portrait' );
-	const aboutTitle    = presentation.querySelector( '.about__title' );
-	const aboutCopy     = presentation.querySelector( '.about__copy' );
+	const logoCircle        = document.querySelector( '.site-header__logo-circle' );
 
-	const heroPanelStyles = window.getComputedStyle( heroPanel );
-	const titleBandStyles = window.getComputedStyle( titleBand );
-	const aboutCardStyles = window.getComputedStyle( aboutCard );
-	const heroBoxShadow   = heroPanelStyles.boxShadow;
-	const teamBoxShadow   = titleBandStyles.boxShadow;
-	const aboutBoxShadow  = aboutCardStyles.boxShadow;
+	const circle            = presentation.querySelector( '.circle' );
+	const box               = presentation.querySelector( '.box' );
+
+	const heroSection       = presentation.querySelector( '.hero' );
+	const heroSlide         = presentation.querySelector( '.hero__slide' );
+	const heroCopy          = presentation.querySelector( '.hero__copy' );
+	
+	const skills            = presentation.querySelector( '.skills' );
+	const skillsTitleBand   = presentation.querySelector( '.skills__title-band' );
+
+	const aboutSection      = presentation.querySelector( '.about' );
+	const aboutPortrait     = presentation.querySelector( '.about__portrait' );
+	const aboutPortraitCard = presentation.querySelector( '.about__portrait-card' );
+	const aboutTitle        = presentation.querySelector( '.about__title' );
+	const aboutCopy         = presentation.querySelector( '.about__copy' );
+
+	const heroSlideStyles         = window.getComputedStyle( heroSlide );
+	const skillsTitleBandStyles   = window.getComputedStyle( skillsTitleBand );
+	const aboutPortraitCardStyles = window.getComputedStyle( aboutPortraitCard );
+	const heroBoxShadow           = heroSlideStyles.boxShadow;
+	const skillsBoxShadow         = skillsTitleBandStyles.boxShadow;
+	const aboutBoxShadow          = aboutPortraitCardStyles.boxShadow;
 
 	gsap.registerPlugin( ScrollTrigger );
 
@@ -70,23 +76,23 @@ export function initPresentationTransition() {
 	gsap.set( circle, circleInitialSetup );
 
 	gsap.set( box, {
-		...getRelativeBounds( heroPanel, presentation ),
+		...getRelativeBounds( heroSlide, presentation ),
 		'--box-overlay-opacity': 1,
-		borderRadius: heroPanelStyles.borderRadius,
+		borderRadius: heroSlideStyles.borderRadius,
 		boxShadow: heroBoxShadow,
 		rotation: 0,
 		scale: 1,
 	} );
 
-	const members = gsap.utils.toArray( '.team-member' );
-	gsap.set( members, {
+	const skillsItems = gsap.utils.toArray( '.skills-item' );
+	gsap.set( skillsItems, {
 		autoAlpha: 0,
 		xPercent: ( index ) => [ -190, -85, 85, 190 ][ index ],
 		yPercent: ( index ) => ( index % 2 === 0 ? -12 : 12 ),
 		scale: 0.82,
 	} );
 
-	gsap.set( titleBand, { autoAlpha: 0, yPercent: 110 } );
+	gsap.set( skillsTitleBand, { autoAlpha: 0, yPercent: 110 } );
 
 	gsap.set( aboutPortrait, { autoAlpha: 0, y: 24, scale: 0.96 } );
 
@@ -159,14 +165,14 @@ export function initPresentationTransition() {
 		.set(
 			box,
 			{
-				x: () => getRelativeBounds( heroPanel, presentation ).x,
-				y: () => getRelativeBounds( heroPanel, presentation ).y,
-				width: () => getRelativeBounds( heroPanel, presentation ).width,
+				x: () => getRelativeBounds( heroSlide, presentation ).x,
+				y: () => getRelativeBounds( heroSlide, presentation ).y,
+				width: () => getRelativeBounds( heroSlide, presentation ).width,
 				height: () =>
-					getRelativeBounds( heroPanel, presentation ).height,
+					getRelativeBounds( heroSlide, presentation ).height,
 				'--box-overlay-opacity': 1,
 				borderRadius: () =>
-					window.getComputedStyle( heroPanel ).borderRadius,
+					window.getComputedStyle( heroSlide ).borderRadius,
 				boxShadow: heroBoxShadow,
 				rotation: 0,
 				scale: 1,
@@ -177,15 +183,15 @@ export function initPresentationTransition() {
 		.to(
 			box,
 			{
-				x: () => getRelativeBounds( titleBand, presentation ).x,
-				y: () => getRelativeBounds( titleBand, presentation ).y,
-				width: () => getRelativeBounds( titleBand, presentation ).width,
+				x: () => getRelativeBounds( skillsTitleBand, presentation ).x,
+				y: () => getRelativeBounds( skillsTitleBand, presentation ).y,
+				width: () => getRelativeBounds( skillsTitleBand, presentation ).width,
 				height: () =>
-					getRelativeBounds( titleBand, presentation ).height,
+					getRelativeBounds( skillsTitleBand, presentation ).height,
 				'--box-overlay-opacity': 0,
 				borderRadius: () =>
-					window.getComputedStyle( titleBand ).borderRadius,
-				boxShadow: teamBoxShadow,
+					window.getComputedStyle( skillsTitleBand ).borderRadius,
+				boxShadow: skillsBoxShadow,
 				rotation: () =>
 					window.matchMedia( '(max-width: 48rem)' ).matches ? 1 : 1.1,
 				scale: 1.02,
@@ -198,13 +204,13 @@ export function initPresentationTransition() {
 		.to(
 			box,
 			{
-				x: () => getRelativeBounds( aboutCard, presentation ).x,
-				y: () => getRelativeBounds( aboutCard, presentation ).y,
-				width: () => getRelativeBounds( aboutCard, presentation ).width,
+				x: () => getRelativeBounds( aboutPortraitCard, presentation ).x,
+				y: () => getRelativeBounds( aboutPortraitCard, presentation ).y,
+				width: () => getRelativeBounds( aboutPortraitCard, presentation ).width,
 				height: () =>
-					getRelativeBounds( aboutCard, presentation ).height,
+					getRelativeBounds( aboutPortraitCard, presentation ).height,
 				borderRadius: () =>
-					window.getComputedStyle( aboutCard ).borderRadius,
+					window.getComputedStyle( aboutPortraitCard ).borderRadius,
 				boxShadow: aboutBoxShadow,
 				rotation: 0,
 				scale: 1,
@@ -227,12 +233,12 @@ export function initPresentationTransition() {
 			},
 			0.15
 		)
-		.to( hero, { autoAlpha: 0, duration: 0.4 }, 1.2 );
+		.to( heroSection, { autoAlpha: 0, duration: 0.4 }, 1.2 );
 
-	// Team.
+	// Skills.
 	transition
 		.to(
-			members[ 0 ],
+			skillsItems[ 0 ],
 			{
 				autoAlpha: 1,
 				xPercent: 0,
@@ -243,7 +249,7 @@ export function initPresentationTransition() {
 			0.72
 		)
 		.to(
-			members[ 3 ],
+			skillsItems[ 3 ],
 			{
 				autoAlpha: 1,
 				xPercent: 0,
@@ -254,7 +260,7 @@ export function initPresentationTransition() {
 			0.72
 		)
 		.to(
-			members[ 1 ],
+			skillsItems[ 1 ],
 			{
 				autoAlpha: 1,
 				xPercent: 0,
@@ -265,7 +271,7 @@ export function initPresentationTransition() {
 			1.02
 		)
 		.to(
-			members[ 2 ],
+			skillsItems[ 2 ],
 			{
 				autoAlpha: 1,
 				xPercent: 0,
@@ -276,20 +282,21 @@ export function initPresentationTransition() {
 			1.02
 		)
 		.to(
-			titleBand,
+			skillsTitleBand,
 			{ autoAlpha: 1, yPercent: 0, duration: 0.75 },
 			1.55
 		)
-		.addLabel( 'team', 2.3 )
+		.addLabel( 'skills', 2.3 )
 		.to(
-			'.team-member, .team__title-band',
+			[ ...skillsItems, skillsTitleBand ],
 			{ autoAlpha: 0, y: -20, duration: 0.6 },
 			2.35
 		)
-		.set( '.team', { pointerEvents: 'none' }, 4.5 );
+		.set( skills, { pointerEvents: 'none' }, 4.5 );
 
 	// About.
 	transition
+		.to( logoCircle, { fill: '#9abbdb' }, 3.05 )
 		.to(
 			aboutPortrait,
 			{ autoAlpha: 1, y: 0, scale: 1, duration: 0.85 },
@@ -297,7 +304,7 @@ export function initPresentationTransition() {
 		)
 		.to( aboutTitle, { autoAlpha: 1, x: 0, duration: 0.9 }, 3.25 )
 		.to( aboutCopy, { autoAlpha: 1, y: 0, duration: 0.8 }, 3.55 )
-		.set( about, { pointerEvents: 'auto' }, 4.6 )
+		.set( aboutSection, { pointerEvents: 'auto' }, 4.6 )
 		.addLabel( 'about', 4.6 );
 
 	initSceneNavigation( transition );

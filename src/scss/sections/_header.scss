@@ -18,13 +18,32 @@
 	letter-spacing: 0.34em;
 	text-transform: uppercase;
 
+	@include mobile {
+		grid-template-columns: 1fr 1fr;
+	}
+
 	&__logo {
 		display: flex;
 		justify-self: start;
+
+		svg {
+			display: block;
+			width: 100%;
+			height: auto;
+			color: $color-svg;
+		}
+
+		&-circle {
+			color: $color-circle;
+		}
 	}
 
 	&__role {
 		margin: 0;
+
+		@include mobile {
+			display: none;
+		}
 	}
 
 	&__contact {
@@ -34,10 +53,6 @@
 
 		&:hover {
 			text-decoration: underline;
-		}
-
-		@include mobile {
-			display: none;
 		}
 	}
 }

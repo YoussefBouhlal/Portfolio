@@ -1,4 +1,4 @@
-.team {
+.skills {
 	position: relative;
 	min-height: 100svh;
 	overflow: hidden;
@@ -39,6 +39,84 @@
 		}
 	}
 
+	&-item {
+		text-align: center;
+
+		&:nth-child(even) {
+			transform: translateY(1.75rem);
+
+			@include mobile {
+				transform: none;
+			}
+		}
+
+		&__icon {
+			display: block;
+			width: min(13.5vw, 10rem);
+			aspect-ratio: 1;
+			margin: 0 auto clamp(1rem, 1.8vw, 1.5rem);
+			border: clamp(0.3rem, 0.5vw, 0.5rem) solid rgba(255, 255, 255, 0.75);
+			border-radius: 50%;
+			object-fit: cover;
+			box-shadow: 0 1.2rem 2.6rem rgba(47, 76, 98, 0.16);
+			height: 100%;
+			background-color: rgba(255, 255, 255, 0.75);
+			padding: 20px;
+
+			@include mobile {
+				width: min(35vw, 9rem);
+			}
+
+			@include mobile-short {
+				width: min(25vw, 5.5rem);
+				margin-bottom: 0.45rem;
+				border-width: 0.25rem;
+			}
+
+			svg {
+				display: block;
+				width: 100%;
+				height: auto;
+				color: $color-svg;
+			}
+		}
+
+		h3 {
+			margin: 0 0 0.55rem;
+			font-family: $font-heading;
+			font-size: clamp(1rem, 1.65vw, 1.55rem);
+			font-weight: 700;
+			letter-spacing: 0;
+
+			@include mobile {
+				font-size: clamp(0.9rem, 4vw, 1.1rem);
+			}
+
+			@include mobile-short {
+				margin-bottom: 0.25rem;
+				font-size: 0.72rem;
+			}
+		}
+
+		p {
+			max-width: 14rem;
+			margin: 0 auto;
+			color: #696f73;
+			font-size: clamp(0.68rem, 0.9vw, 0.86rem);
+			line-height: 1.45;
+
+			@include mobile {
+				font-size: 0.68rem;
+			}
+
+			@include mobile-short {
+				max-width: 8rem;
+				font-size: 0.55rem;
+				line-height: 1.25;
+			}
+		}
+	}
+
 	&__title-band {
 		position: absolute;
 		right: clamp(1rem, 5vw, 5rem);
@@ -49,7 +127,6 @@
 		min-height: clamp(8rem, 21vh, 12rem);
 		place-items: center;
 		transform: rotate(1.1deg) scale(1.02);
-		background: rgba(250, 249, 246, 0.96);
 		box-shadow: 0 -1.5rem 3rem rgba(63, 80, 93, 0.12);
 		border-radius: 30px;
 
