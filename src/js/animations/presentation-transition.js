@@ -55,6 +55,26 @@ export function initPresentationTransition() {
 	const aboutTitle        = presentation.querySelector( '.about__title' );
 	const aboutCopy         = presentation.querySelector( '.about__copy' );
 
+	const projectsSection = presentation.querySelector( '.projects' );
+	const projectsStack = presentation.querySelector( '.projects__stack' );
+	const projectsContent = presentation.querySelector( '.projects__content' );
+	const projectStage = presentation.querySelector(
+		'.projects__detail-stage'
+	);
+	const projectDetails = gsap.utils.toArray(
+		'.projects__detail',
+		presentation
+	);
+	const projectsImages = gsap.utils.toArray(
+		'.projects__image',
+		presentation
+	);
+	const projectsStackStyles = window.getComputedStyle( projectsStack );
+	const projectsBoxShadow = projectsStackStyles.boxShadow;
+	const prefersReducedMotion = window.matchMedia(
+		'(prefers-reduced-motion: reduce)'
+	).matches;
+
 	const heroSlideStyles         = window.getComputedStyle( heroSlide );
 	const skillsTitleBandStyles   = window.getComputedStyle( skillsTitleBand );
 	const aboutPortraitCardStyles = window.getComputedStyle( aboutPortraitCard );
@@ -100,6 +120,18 @@ export function initPresentationTransition() {
 
 	gsap.set( aboutCopy, { autoAlpha: 0, y: 24 } );
 
+	gsap.set( projectsSection, { autoAlpha: 0 } );
+	gsap.set( projectDetails, { autoAlpha: 0 } );
+	gsap.set( projectsContent, {
+		autoAlpha: 0,
+		x: prefersReducedMotion ? 0 : -32,
+	} );
+	gsap.set( projectsImages, {
+		autoAlpha: 0,
+		y: prefersReducedMotion ? 0 : 64,
+		scale: prefersReducedMotion ? 1 : 0.9,
+	} );
+
 	document.documentElement.classList.add( 'has-scroll-animation' );
 	
 	// Initialize the presentation transition timeline.
@@ -108,7 +140,7 @@ export function initPresentationTransition() {
 		scrollTrigger: {
 			trigger: presentation,
 			start: 'top top',
-			end: '+=640%',
+			end: `+=${ 960 + projectsImages.length * 320 }%`,
 			pin: true,
 			scrub: 0.8,
 			anticipatePin: 1,
@@ -306,6 +338,171 @@ export function initPresentationTransition() {
 		.to( aboutCopy, { autoAlpha: 1, y: 0, duration: 0.8 }, 3.55 )
 		.set( aboutSection, { pointerEvents: 'auto' }, 4.6 )
 		.addLabel( 'about', 4.6 );
+
+	transition
+		.to( aboutSection, { autoAlpha: 0, duration: 0.5 }, 4.85 )
+		.set( aboutSection, { pointerEvents: 'none' }, 5.35 )
+		.to(
+			circle,
+			{
+				x: () => window.innerWidth * 0.8,
+				y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
+				width: getInitialCircleDiameter,
+				height: getInitialCircleDiameter,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			4.85
+		)
+		.to(
+			box,
+			{
+				x: () => getRelativeBounds( projectsStack, presentation ).x,
+				y: () => getRelativeBounds( projectsStack, presentation ).y,
+				width: () =>
+					getRelativeBounds( projectsStack, presentation ).width,
+				height: () =>
+					getRelativeBounds( projectsStack, presentation ).height,
+				borderRadius: projectsStackStyles.borderRadius,
+				boxShadow: projectsBoxShadow,
+				rotation: 0,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			4.85
+		)
+		.set( projectsSection, { autoAlpha: 1 }, 5.35 )
+		.to( projectsContent, { autoAlpha: 1, x: 0, duration: 0.8 }, 5.8 )
+		.to(
+			projectsImages,
+			{
+				autoAlpha: 1,
+				y: 0,
+				scale: 1,
+				duration: prefersReducedMotion ? 0 : 0.75,
+				stagger: prefersReducedMotion ? 0 : 0.14,
+				ease: 'power2.out',
+			},
+			5.9
+		)
+		.set( projectsSection, { pointerEvents: 'auto' }, 7.05 )
+		.addLabel( 'projects', 7.05 );
+
+	const projectTransitionDuration = prefersReducedMotion ? 0 : 1.5;
+	const stackRotations = [ -11, 9, -6, 12 ];
+	const getOffscreenImageX = ( image ) =>
+		window.innerWidth * 1.15 - getRelativeBounds( image, presentation ).x;
+	const getActiveImageX = ( image ) =>
+		getRelativeBounds( projectStage, presentation ).x -
+		getRelativeBounds( image, presentation ).x;
+	const getActiveImageY = ( image ) =>
+		getRelativeBounds( projectStage, presentation ).y -
+		getRelativeBounds( image, presentation ).y;
+
+	transition
+		.to( projectsContent, { autoAlpha: 0, duration: 0.4 }, 7.3 )
+		.to(
+			circle,
+			{
+				x: () => window.innerWidth * 0.08,
+				y: () =>
+					( window.innerHeight -
+						Math.max( window.innerWidth, window.innerHeight ) *
+							2 ) /
+					2,
+				width: () =>
+					Math.max( window.innerWidth, window.innerHeight ) * 2,
+				height: () =>
+					Math.max( window.innerWidth, window.innerHeight ) * 2,
+				duration: projectTransitionDuration,
+				ease: 'power2.inOut',
+			},
+			7.3
+		)
+		.to(
+			box,
+			{
+				x: () => getRelativeBounds( projectStage, presentation ).x,
+				y: () => getRelativeBounds( projectStage, presentation ).y,
+				width: () =>
+					getRelativeBounds( projectStage, presentation ).width,
+				height: () =>
+					getRelativeBounds( projectStage, presentation ).height,
+				borderRadius: '4px',
+				duration: projectTransitionDuration,
+				ease: 'power2.inOut',
+			},
+			7.3
+		);
+
+	projectsImages.forEach( ( image, index ) => {
+		const sceneStart = 7.3 + index * 2.3;
+		const previousImage = projectsImages[ index - 1 ];
+
+		if ( index === 0 ) {
+			projectsImages.slice( 1 ).forEach( ( stackedImage ) => {
+				transition.to(
+					stackedImage,
+					{
+						x: () => getOffscreenImageX( stackedImage ),
+						autoAlpha: 0,
+						duration: projectTransitionDuration,
+						ease: 'power2.inOut',
+					},
+					sceneStart
+				);
+			} );
+		} else {
+			transition
+				.to(
+					previousImage,
+					{
+						x: () => getOffscreenImageX( previousImage ),
+						y: 0,
+						width: '76%',
+						height: '65%',
+						rotation: stackRotations[ index - 1 ],
+						autoAlpha: 0,
+						zIndex: 0,
+						duration: projectTransitionDuration,
+						ease: 'power2.inOut',
+					},
+					sceneStart
+				)
+				.to(
+					projectDetails[ index - 1 ],
+					{ autoAlpha: 0, duration: 0.3 },
+					sceneStart
+				);
+		}
+
+		transition
+			.set( image, { zIndex: 1 }, sceneStart )
+			.to(
+				image,
+				{
+					x: () => getActiveImageX( image ),
+					y: () => getActiveImageY( image ),
+					width: () =>
+						getRelativeBounds( projectStage, presentation ).width,
+					height: () =>
+						getRelativeBounds( projectStage, presentation ).height,
+					rotation: 0,
+					scale: 1,
+					autoAlpha: 1,
+					duration: projectTransitionDuration,
+					ease: 'power2.inOut',
+				},
+				sceneStart
+			)
+			.to(
+				projectDetails[ index ],
+				{ autoAlpha: 1, duration: 0.5 },
+				sceneStart + 1
+			)
+			.set( image, { autoAlpha: 1 }, sceneStart + 1.8 )
+			.addLabel( `project-${ index + 1 }`, sceneStart + 1.8 );
+	} );
 
 	initSceneNavigation( transition );
 }
