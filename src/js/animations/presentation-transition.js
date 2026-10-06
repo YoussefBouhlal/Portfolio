@@ -37,6 +37,8 @@ export function initPresentationTransition() {
 		return;
 	}
 
+	const body              = document.body;
+
 	const logoCircle        = document.querySelector( '.site-header__logo-circle' );
 
 	const circle            = presentation.querySelector( '.circle' );
@@ -48,6 +50,7 @@ export function initPresentationTransition() {
 	
 	const skills            = presentation.querySelector( '.skills' );
 	const skillsTitleBand   = presentation.querySelector( '.skills__title-band' );
+	const skillsItems       = gsap.utils.toArray( '.skills-item' );
 
 	const aboutSection      = presentation.querySelector( '.about' );
 	const aboutPortrait     = presentation.querySelector( '.about__portrait' );
@@ -56,31 +59,20 @@ export function initPresentationTransition() {
 	const aboutCopy         = presentation.querySelector( '.about__copy' );
 
 	const projectsSection = presentation.querySelector( '.projects' );
-	const projectsStack = presentation.querySelector( '.projects__stack' );
+	const projectsStack   = presentation.querySelector( '.projects__stack' );
 	const projectsContent = presentation.querySelector( '.projects__content' );
-	const projectStage = presentation.querySelector(
-		'.projects__detail-stage'
-	);
-	const projectDetails = gsap.utils.toArray(
-		'.projects__detail',
-		presentation
-	);
-	const projectsImages = gsap.utils.toArray(
-		'.projects__image',
-		presentation
-	);
-	const projectsStackStyles = window.getComputedStyle( projectsStack );
-	const projectsBoxShadow = projectsStackStyles.boxShadow;
-	const prefersReducedMotion = window.matchMedia(
-		'(prefers-reduced-motion: reduce)'
-	).matches;
+	const projectStage    = presentation.querySelector( '.projects__detail-stage' );
+	const projectDetails  = gsap.utils.toArray( '.projects__detail', presentation );
+	const projectsImages  = gsap.utils.toArray( '.projects__image', presentation );
 
 	const heroSlideStyles         = window.getComputedStyle( heroSlide );
 	const skillsTitleBandStyles   = window.getComputedStyle( skillsTitleBand );
 	const aboutPortraitCardStyles = window.getComputedStyle( aboutPortraitCard );
+	const projectsStackStyles     = window.getComputedStyle( projectsStack );
 	const heroBoxShadow           = heroSlideStyles.boxShadow;
 	const skillsBoxShadow         = skillsTitleBandStyles.boxShadow;
 	const aboutBoxShadow          = aboutPortraitCardStyles.boxShadow;
+	const projectsBoxShadow       = projectsStackStyles.boxShadow;
 
 	gsap.registerPlugin( ScrollTrigger );
 
@@ -104,7 +96,6 @@ export function initPresentationTransition() {
 		scale: 1,
 	} );
 
-	const skillsItems = gsap.utils.toArray( '.skills-item' );
 	gsap.set( skillsItems, {
 		autoAlpha: 0,
 		xPercent: ( index ) => [ -190, -85, 85, 190 ][ index ],
@@ -113,24 +104,13 @@ export function initPresentationTransition() {
 	} );
 
 	gsap.set( skillsTitleBand, { autoAlpha: 0, yPercent: 110 } );
-
 	gsap.set( aboutPortrait, { autoAlpha: 0, y: 24, scale: 0.96 } );
-
 	gsap.set( aboutTitle, { autoAlpha: 0, x: 48 } );
-
 	gsap.set( aboutCopy, { autoAlpha: 0, y: 24 } );
-
 	gsap.set( projectsSection, { autoAlpha: 0 } );
 	gsap.set( projectDetails, { autoAlpha: 0 } );
-	gsap.set( projectsContent, {
-		autoAlpha: 0,
-		x: prefersReducedMotion ? 0 : -32,
-	} );
-	gsap.set( projectsImages, {
-		autoAlpha: 0,
-		y: prefersReducedMotion ? 0 : 64,
-		scale: prefersReducedMotion ? 1 : 0.9,
-	} );
+	gsap.set( projectsContent, { autoAlpha: 0, x: -32 } );
+	gsap.set( projectsImages, { autoAlpha: 0, y: 64, scale: 0.9, } );
 
 	document.documentElement.classList.add( 'has-scroll-animation' );
 	
@@ -190,6 +170,36 @@ export function initPresentationTransition() {
 				scale: 1,
 			},
 			2.4
+		)
+		.to(
+			circle,
+			{
+				x: () => window.innerWidth * 0.7,
+				y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
+				width: getInitialCircleDiameter,
+				height: getInitialCircleDiameter,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			4.85
+		)
+		.to(
+			circle,
+			{
+				x: () => window.innerWidth * 0.08,
+				y: () =>
+					( window.innerHeight -
+						Math.max( window.innerWidth, window.innerHeight ) *
+							2 ) /
+					2,
+				width: () =>
+					Math.max( window.innerWidth, window.innerHeight ) * 2,
+				height: () =>
+					Math.max( window.innerWidth, window.innerHeight ) * 2,
+				duration: 1.5,
+				ease: 'power2.inOut',
+			},
+			7.3
 		);
 
 	// Box.
@@ -250,6 +260,36 @@ export function initPresentationTransition() {
 				ease: 'power1.inOut',
 			},
 			2.4
+		)
+		.to(
+			box,
+			{
+				x: () => window.innerWidth * 0.85,
+				y: () => ( window.innerHeight - window.innerHeight * 0.9 ) / 2,
+				width: window.innerWidth * 0.2,
+				height: window.innerHeight * 0.9,
+				borderRadius: projectsStackStyles.borderRadius,
+				boxShadow: projectsBoxShadow,
+				rotation: 0,
+				duration: 2.05,
+				ease: 'power1.inOut',
+			},
+			4.85
+		)
+		.to(
+			box,
+			{
+				x: () => getRelativeBounds( projectStage, presentation ).x,
+				y: () => getRelativeBounds( projectStage, presentation ).y,
+				width: () =>
+					getRelativeBounds( projectStage, presentation ).width,
+				height: () =>
+					getRelativeBounds( projectStage, presentation ).height,
+				borderRadius: '4px',
+				duration: 1.5,
+				ease: 'power2.inOut',
+			},
+			7.3
 		);
 
 	// Hero.
@@ -337,40 +377,14 @@ export function initPresentationTransition() {
 		.to( aboutTitle, { autoAlpha: 1, x: 0, duration: 0.9 }, 3.25 )
 		.to( aboutCopy, { autoAlpha: 1, y: 0, duration: 0.8 }, 3.55 )
 		.set( aboutSection, { pointerEvents: 'auto' }, 4.6 )
-		.addLabel( 'about', 4.6 );
-
-	transition
+		.addLabel( 'about', 4.6 )
 		.to( aboutSection, { autoAlpha: 0, duration: 0.5 }, 4.85 )
-		.set( aboutSection, { pointerEvents: 'none' }, 5.35 )
-		.to(
-			circle,
-			{
-				x: () => window.innerWidth * 0.8,
-				y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
-				width: getInitialCircleDiameter,
-				height: getInitialCircleDiameter,
-				duration: 2.05,
-				ease: 'power1.inOut',
-			},
-			4.85
-		)
-		.to(
-			box,
-			{
-				x: () => getRelativeBounds( projectsStack, presentation ).x,
-				y: () => getRelativeBounds( projectsStack, presentation ).y,
-				width: () =>
-					getRelativeBounds( projectsStack, presentation ).width,
-				height: () =>
-					getRelativeBounds( projectsStack, presentation ).height,
-				borderRadius: projectsStackStyles.borderRadius,
-				boxShadow: projectsBoxShadow,
-				rotation: 0,
-				duration: 2.05,
-				ease: 'power1.inOut',
-			},
-			4.85
-		)
+		.set( aboutSection, { pointerEvents: 'none' }, 5.35 );
+
+	// Projects.
+	transition
+		.to( body, { backgroundColor: '#0960bb' }, 5.35 )
+		.to( logoCircle, { fill: '#f5f4f0' }, 5.35 )
 		.set( projectsSection, { autoAlpha: 1 }, 5.35 )
 		.to( projectsContent, { autoAlpha: 1, x: 0, duration: 0.8 }, 5.8 )
 		.to(
@@ -379,16 +393,16 @@ export function initPresentationTransition() {
 				autoAlpha: 1,
 				y: 0,
 				scale: 1,
-				duration: prefersReducedMotion ? 0 : 0.75,
-				stagger: prefersReducedMotion ? 0 : 0.14,
+				duration: 0.75,
+				stagger: 0.14,
 				ease: 'power2.out',
 			},
 			5.9
 		)
+		.addLabel( 'projects', 7.05 )
 		.set( projectsSection, { pointerEvents: 'auto' }, 7.05 )
-		.addLabel( 'projects', 7.05 );
+		.to( projectsContent, { autoAlpha: 0, duration: 0.4 }, 7.3 );
 
-	const projectTransitionDuration = prefersReducedMotion ? 0 : 1.5;
 	const stackRotations = [ -11, 9, -6, 12 ];
 	const getOffscreenImageX = ( image ) =>
 		window.innerWidth * 1.15 - getRelativeBounds( image, presentation ).x;
@@ -399,44 +413,9 @@ export function initPresentationTransition() {
 		getRelativeBounds( projectStage, presentation ).y -
 		getRelativeBounds( image, presentation ).y;
 
-	transition
-		.to( projectsContent, { autoAlpha: 0, duration: 0.4 }, 7.3 )
-		.to(
-			circle,
-			{
-				x: () => window.innerWidth * 0.08,
-				y: () =>
-					( window.innerHeight -
-						Math.max( window.innerWidth, window.innerHeight ) *
-							2 ) /
-					2,
-				width: () =>
-					Math.max( window.innerWidth, window.innerHeight ) * 2,
-				height: () =>
-					Math.max( window.innerWidth, window.innerHeight ) * 2,
-				duration: projectTransitionDuration,
-				ease: 'power2.inOut',
-			},
-			7.3
-		)
-		.to(
-			box,
-			{
-				x: () => getRelativeBounds( projectStage, presentation ).x,
-				y: () => getRelativeBounds( projectStage, presentation ).y,
-				width: () =>
-					getRelativeBounds( projectStage, presentation ).width,
-				height: () =>
-					getRelativeBounds( projectStage, presentation ).height,
-				borderRadius: '4px',
-				duration: projectTransitionDuration,
-				ease: 'power2.inOut',
-			},
-			7.3
-		);
-
+	// Project image.
 	projectsImages.forEach( ( image, index ) => {
-		const sceneStart = 7.3 + index * 2.3;
+		const sceneStart    = 7.3 + index * 2.3;
 		const previousImage = projectsImages[ index - 1 ];
 
 		if ( index === 0 ) {
@@ -446,7 +425,7 @@ export function initPresentationTransition() {
 					{
 						x: () => getOffscreenImageX( stackedImage ),
 						autoAlpha: 0,
-						duration: projectTransitionDuration,
+						duration: 1.5,
 						ease: 'power2.inOut',
 					},
 					sceneStart
@@ -464,7 +443,7 @@ export function initPresentationTransition() {
 						rotation: stackRotations[ index - 1 ],
 						autoAlpha: 0,
 						zIndex: 0,
-						duration: projectTransitionDuration,
+						duration: 1.5,
 						ease: 'power2.inOut',
 					},
 					sceneStart
@@ -490,7 +469,7 @@ export function initPresentationTransition() {
 					rotation: 0,
 					scale: 1,
 					autoAlpha: 1,
-					duration: projectTransitionDuration,
+					duration: 1.5,
 					ease: 'power2.inOut',
 				},
 				sceneStart
