@@ -3,7 +3,7 @@ import { Observer } from 'gsap/Observer';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 const INTERACTIVE_SELECTOR =
-	'a, button, input, select, textarea, [contenteditable="true"]';
+	'a, button, input, select, textarea, [contenteditable="true"], .contact__panel';
 const SETTLE_TOLERANCE = 0.005;
 const SCROLL_TOLERANCE = 2;
 

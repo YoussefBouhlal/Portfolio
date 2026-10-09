@@ -32,8 +32,17 @@
 	.hero__slide,
 	.skills__title-band,
 	.about__portrait-card,
-	.projects__stack {
+	.projects__stack,
+	.contact__panel {
 		background: transparent;
 		box-shadow: none;
+	}
+
+	.contact {
+		background: transparent;
+
+		&::before {
+			display: none;
+		}
 	}
 }

@@ -37,42 +37,48 @@ export function initPresentationTransition() {
 		return;
 	}
 
-	const body              = document.body;
+	const body = document.body;
 
-	const logoCircle        = document.querySelector( '.site-header__logo-circle' );
+	const logoCircle = document.querySelector( '.site-header__logo-circle' );
 
-	const circle            = presentation.querySelector( '.circle' );
-	const box               = presentation.querySelector( '.box' );
+	const circle = presentation.querySelector( '.circle' );
+	const box    = presentation.querySelector( '.box' );
 
-	const heroSection       = presentation.querySelector( '.hero' );
-	const heroSlide         = presentation.querySelector( '.hero__slide' );
-	const heroCopy          = presentation.querySelector( '.hero__copy' );
+	const heroSection     = presentation.querySelector( '.hero' );
+	const heroSlide       = presentation.querySelector( '.hero__slide' );
+	const heroCopy        = presentation.querySelector( '.hero__copy' );
+	const heroSlideStyles = window.getComputedStyle( heroSlide );
+	const heroBoxShadow   = heroSlideStyles.boxShadow;
 	
-	const skills            = presentation.querySelector( '.skills' );
-	const skillsTitleBand   = presentation.querySelector( '.skills__title-band' );
-	const skillsItems       = gsap.utils.toArray( '.skills-item' );
+	const skills                = presentation.querySelector( '.skills' );
+	const skillsTitleBand       = presentation.querySelector( '.skills__title-band' );
+	const skillsItems           = gsap.utils.toArray( '.skills-item' );
+	const skillsTitleBandStyles = window.getComputedStyle( skillsTitleBand );
+	const skillsBoxShadow       = skillsTitleBandStyles.boxShadow;
 
-	const aboutSection      = presentation.querySelector( '.about' );
-	const aboutPortrait     = presentation.querySelector( '.about__portrait' );
-	const aboutPortraitCard = presentation.querySelector( '.about__portrait-card' );
-	const aboutTitle        = presentation.querySelector( '.about__title' );
-	const aboutCopy         = presentation.querySelector( '.about__copy' );
-
-	const projectsSection = presentation.querySelector( '.projects' );
-	const projectsStack   = presentation.querySelector( '.projects__stack' );
-	const projectsContent = presentation.querySelector( '.projects__content' );
-	const projectStage    = presentation.querySelector( '.projects__detail-stage' );
-	const projectDetails  = gsap.utils.toArray( '.projects__detail', presentation );
-	const projectsImages  = gsap.utils.toArray( '.projects__image', presentation );
-
-	const heroSlideStyles         = window.getComputedStyle( heroSlide );
-	const skillsTitleBandStyles   = window.getComputedStyle( skillsTitleBand );
+	const aboutSection            = presentation.querySelector( '.about' );
+	const aboutPortrait           = presentation.querySelector( '.about__portrait' );
+	const aboutPortraitCard       = presentation.querySelector( '.about__portrait-card' );
+	const aboutTitle              = presentation.querySelector( '.about__title' );
+	const aboutCopy               = presentation.querySelector( '.about__copy' );
 	const aboutPortraitCardStyles = window.getComputedStyle( aboutPortraitCard );
-	const projectsStackStyles     = window.getComputedStyle( projectsStack );
-	const heroBoxShadow           = heroSlideStyles.boxShadow;
-	const skillsBoxShadow         = skillsTitleBandStyles.boxShadow;
 	const aboutBoxShadow          = aboutPortraitCardStyles.boxShadow;
-	const projectsBoxShadow       = projectsStackStyles.boxShadow;
+
+	const projectsSection     = presentation.querySelector( '.projects' );
+	const projectsStack       = presentation.querySelector( '.projects__stack' );
+	const projectsContent     = presentation.querySelector( '.projects__content' );
+	const projectStage        = presentation.querySelector( '.projects__detail-stage' );
+	const projectDetails      = gsap.utils.toArray( '.projects__detail', presentation );
+	const projectsImages      = gsap.utils.toArray( '.projects__image', presentation );
+	const projectsStackStyles = window.getComputedStyle( projectsStack );
+	const projectsBoxShadow   = projectsStackStyles.boxShadow;
+
+	const contactSection     = presentation.querySelector( '.contact' );
+	const contactPanel       = presentation.querySelector( '.contact__panel' );
+	const contactContent     = gsap.utils.toArray( '.contact__item', presentation );
+	const contactPanelStyles = window.getComputedStyle( contactPanel );
+	const contactBoxShadow   = contactPanelStyles.boxShadow;
+	const contactStart       = 7.3 + projectsImages.length * 2.3;
 
 	gsap.registerPlugin( ScrollTrigger );
 
@@ -111,6 +117,8 @@ export function initPresentationTransition() {
 	gsap.set( projectDetails, { autoAlpha: 0 } );
 	gsap.set( projectsContent, { autoAlpha: 0, x: -32 } );
 	gsap.set( projectsImages, { autoAlpha: 0, y: 64, scale: 0.9, } );
+	gsap.set( contactSection, { autoAlpha: 0 } );
+	gsap.set( contactContent, { autoAlpha: 0, y: 24 } );
 
 	document.documentElement.classList.add( 'has-scroll-animation' );
 	
@@ -120,7 +128,7 @@ export function initPresentationTransition() {
 		scrollTrigger: {
 			trigger: presentation,
 			start: 'top top',
-			end: `+=${ 960 + projectsImages.length * 320 }%`,
+			end: `+=${ 1120 + projectsImages.length * 320 }%`,
 			pin: true,
 			scrub: 0.8,
 			anticipatePin: 1,
@@ -290,7 +298,19 @@ export function initPresentationTransition() {
 				ease: 'power2.inOut',
 			},
 			7.3
-		);
+		)
+		.to( box, {
+			x: () => getRelativeBounds( contactPanel, presentation ).x,
+			y: () => getRelativeBounds( contactPanel, presentation ).y,
+			width: () => getRelativeBounds( contactPanel, presentation ).width,
+			height: () => getRelativeBounds( contactPanel, presentation ).height,
+			borderRadius: () => window.getComputedStyle( contactPanel ).borderRadius,
+			backgroundColor: '#f8f8f7',
+			boxShadow: contactBoxShadow,
+			rotation: 0,
+			duration: 1.5,
+			ease: 'power2.inOut',
+		}, contactStart );
 
 	// Hero.
 	transition
@@ -482,6 +502,47 @@ export function initPresentationTransition() {
 			.set( image, { autoAlpha: 1 }, sceneStart + 1.8 )
 			.addLabel( `project-${ index + 1 }`, sceneStart + 1.8 );
 	} );
+
+	// Contact.
+	// const contactStart = 7.3 + projectsImages.length * 2.3;
+	const contactDuration = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 0 : 1.5;
+
+	transition
+		.to( projectsImages[ projectsImages.length - 1 ], {
+			x: () => getOffscreenImageX( projectsImages[ projectsImages.length - 1 ] ),
+			autoAlpha: 0,
+			duration: contactDuration,
+			ease: 'power2.inOut',
+		}, contactStart )
+		.to( projectDetails[ projectDetails.length - 1 ], { autoAlpha: 0, duration: 0.3 }, contactStart )
+		.set( projectsSection, { pointerEvents: 'none' }, contactStart + 0.3 )
+		.set( projectsSection, { autoAlpha: 0 }, contactStart + 1.5 )
+		.to( circle, {
+			x: () => window.innerWidth * ( window.matchMedia( '(max-width: 48rem)' ).matches ? 0.3 : 0.42 ),
+			y: () => -Math.max( window.innerWidth, window.innerHeight ) * 0.12,
+			width: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
+			height: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
+			backgroundColor: '#e4e9ee',
+			duration: contactDuration,
+			ease: 'power2.inOut',
+		}, contactStart )
+		.set( contactSection, { autoAlpha: 1 }, contactStart )
+		.to( contactContent, {
+			autoAlpha: 1,
+			y: 0,
+			duration: contactDuration ? 0.6 : 0,
+			stagger: 0.08,
+			ease: 'power2.out',
+		}, contactStart + 0.85 )
+		.to( document.querySelector( '.site-header' ), { color: '#fff', duration: 0.5 }, contactStart )
+		.to( document.querySelector( '.site-header__contact' ), {
+			color: () => window.matchMedia( '(max-width: 48rem)' ).matches ? '#fff' : '#111318',
+			duration: 0.5,
+		}, contactStart )
+		.to( document.querySelector( '.site-header__logo svg' ), { color: '#fff', duration: 0.5 }, contactStart )
+		.to( logoCircle, { fill: '#fff', duration: 0.5 }, contactStart )
+		.set( contactSection, { pointerEvents: 'auto' }, contactStart + 1.8 )
+		.addLabel( 'contact', contactStart + 1.8 );
 
 	initSceneNavigation( transition );
 }

@@ -1,0 +1,127 @@
+.contact {
+	z-index: 6;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	align-items: center;
+	padding: 14svh 6% 9svh;
+	color: $color-white;
+	pointer-events: none;
+
+	@include tablet {
+		padding-inline: 5%;
+	}
+
+	@include mobile {
+		grid-template-rows: minmax(0, 1fr);
+		padding: 13svh 6% 5svh;
+	}
+
+	&::before {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: #e4e9ee;
+		clip-path: polygon(72% 0, 100% 0, 100% 100%, 37% 100%, 37% 43%);
+		content: "";
+
+		@include mobile {
+			clip-path: polygon(100% 24%, 100% 100%, 30% 100%, 30% 70%);
+		}
+	}
+
+	&__panel {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-content: center;
+		justify-self: center;
+		gap: 3.5rem 2.25rem;
+		width: 100%;
+		max-width: 64rem;
+		min-height: 58svh;
+		margin: 0;
+		padding: 3.5rem 3rem;
+		border-radius: 8px;
+		background: #f8f8f7;
+		box-shadow: 0 1.25rem 3rem rgba(17, 19, 24, 0.12);
+		color: $color-text;
+		font-style: normal;
+
+		@include tablet {
+			gap: 2.5rem 1.5rem;
+			padding: 2.5rem 1.5rem;
+		}
+
+		@include mobile {
+			grid-template-columns: minmax(0, 1fr);
+			align-content: start;
+			align-self: stretch;
+			gap: 1.25rem;
+			min-height: 0;
+			padding: 1.5rem;
+			overflow-y: auto;
+			overscroll-behavior: contain;
+		}
+
+		&:focus-visible {
+			outline: 2px solid $color-text;
+			outline-offset: 5px;
+		}
+	}
+
+	&__item {
+		display: grid;
+		grid-template-columns: 2.75rem minmax(0, 1fr);
+		align-items: start;
+		gap: 0.85rem;
+	}
+
+	&__icon {
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: 50%;
+		background: $color-text;
+		color: $color-white;
+
+		svg {
+			display: block;
+			width: 25px;
+			height: 25px;
+		}
+	}
+
+	&__details {
+		min-width: 0;
+
+		h2 {
+			display: inline-block;
+			margin: 0.45rem 0 0.8rem;
+			font-family: $font-heading;
+			font-size: 1.25rem;
+			font-weight: 800;
+
+			@include mobile {
+				margin: 0.2rem 0 0.35rem;
+				font-size: 1.1rem;
+			}
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		p {
+			max-width: 17rem;
+			margin: 0 0 0.85rem;
+			color: #565c63;
+			font-size: 0.875rem;
+			line-height: 1.6;
+
+			@include mobile {
+				margin-bottom: 0.3rem;
+				font-size: 0.8rem;
+			}
+		}
+	}
+}
