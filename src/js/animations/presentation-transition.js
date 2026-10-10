@@ -71,6 +71,7 @@ export function initPresentationTransition() {
 	const projectDetails      = gsap.utils.toArray( '.projects__detail', presentation );
 	const projectsImages      = gsap.utils.toArray( '.projects__image', presentation );
 	const projectsStackStyles = window.getComputedStyle( projectsStack );
+	const projectStageStyles  = window.getComputedStyle( projectStage );
 	const projectsBoxShadow   = projectsStackStyles.boxShadow;
 
 	const contactSection     = presentation.querySelector( '.contact' );
@@ -208,7 +209,16 @@ export function initPresentationTransition() {
 				ease: 'power2.inOut',
 			},
 			7.3
-		);
+		)
+		.to( circle, {
+			x: () => window.innerWidth * ( window.matchMedia( '(max-width: 48rem)' ).matches ? 0.3 : 0.42 ),
+			y: () => -Math.max( window.innerWidth, window.innerHeight ) * 0.12,
+			width: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
+			height: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
+			backgroundColor: '#e4e9ee',
+			duration: 1.5,
+			ease: 'power2.inOut',
+		}, contactStart );
 
 	// Box.
 	transition
@@ -293,7 +303,7 @@ export function initPresentationTransition() {
 					getRelativeBounds( projectStage, presentation ).width,
 				height: () =>
 					getRelativeBounds( projectStage, presentation ).height,
-				borderRadius: '4px',
+				borderRadius: projectStageStyles.borderRadius,
 				duration: 1.5,
 				ease: 'power2.inOut',
 			},
@@ -421,7 +431,10 @@ export function initPresentationTransition() {
 		)
 		.addLabel( 'projects', 7.05 )
 		.set( projectsSection, { pointerEvents: 'auto' }, 7.05 )
-		.to( projectsContent, { autoAlpha: 0, duration: 0.4 }, 7.3 );
+		.to( projectsContent, { autoAlpha: 0, duration: 0.4 }, 7.3 )
+		.to( projectDetails[ projectDetails.length - 1 ], { autoAlpha: 0, duration: 0.3 }, contactStart )
+		.set( projectsSection, { pointerEvents: 'none' }, contactStart + 0.3 )
+		.set( projectsSection, { autoAlpha: 0 }, contactStart + 1.5 );
 
 	const stackRotations = [ -11, 9, -6, 12 ];
 	const getOffscreenImageX = ( image ) =>
@@ -502,45 +515,24 @@ export function initPresentationTransition() {
 			.set( image, { autoAlpha: 1 }, sceneStart + 1.8 )
 			.addLabel( `project-${ index + 1 }`, sceneStart + 1.8 );
 	} );
-
-	// Contact.
-	// const contactStart = 7.3 + projectsImages.length * 2.3;
-	const contactDuration = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 0 : 1.5;
-
 	transition
 		.to( projectsImages[ projectsImages.length - 1 ], {
 			x: () => getOffscreenImageX( projectsImages[ projectsImages.length - 1 ] ),
 			autoAlpha: 0,
-			duration: contactDuration,
+			duration: 1.5,
 			ease: 'power2.inOut',
-		}, contactStart )
-		.to( projectDetails[ projectDetails.length - 1 ], { autoAlpha: 0, duration: 0.3 }, contactStart )
-		.set( projectsSection, { pointerEvents: 'none' }, contactStart + 0.3 )
-		.set( projectsSection, { autoAlpha: 0 }, contactStart + 1.5 )
-		.to( circle, {
-			x: () => window.innerWidth * ( window.matchMedia( '(max-width: 48rem)' ).matches ? 0.3 : 0.42 ),
-			y: () => -Math.max( window.innerWidth, window.innerHeight ) * 0.12,
-			width: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
-			height: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
-			backgroundColor: '#e4e9ee',
-			duration: contactDuration,
-			ease: 'power2.inOut',
-		}, contactStart )
+		}, contactStart );
+
+	// Contact.
+	transition
 		.set( contactSection, { autoAlpha: 1 }, contactStart )
 		.to( contactContent, {
 			autoAlpha: 1,
 			y: 0,
-			duration: contactDuration ? 0.6 : 0,
+			duration: 0.6,
 			stagger: 0.08,
 			ease: 'power2.out',
 		}, contactStart + 0.85 )
-		.to( document.querySelector( '.site-header' ), { color: '#fff', duration: 0.5 }, contactStart )
-		.to( document.querySelector( '.site-header__contact' ), {
-			color: () => window.matchMedia( '(max-width: 48rem)' ).matches ? '#fff' : '#111318',
-			duration: 0.5,
-		}, contactStart )
-		.to( document.querySelector( '.site-header__logo svg' ), { color: '#fff', duration: 0.5 }, contactStart )
-		.to( logoCircle, { fill: '#fff', duration: 0.5 }, contactStart )
 		.set( contactSection, { pointerEvents: 'auto' }, contactStart + 1.8 )
 		.addLabel( 'contact', contactStart + 1.8 );
 

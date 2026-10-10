@@ -3,9 +3,25 @@ import { Observer } from 'gsap/Observer';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 const INTERACTIVE_SELECTOR =
-	'a, button, input, select, textarea, [contenteditable="true"], .contact__panel';
+	'a, button, input, select, textarea, [contenteditable="true"]';
 const SETTLE_TOLERANCE = 0.005;
 const SCROLL_TOLERANCE = 2;
+
+function getContactPanel( event ) {
+	return typeof event.target?.closest === 'function'
+		? event.target.closest( '.contact__panel' )
+		: null;
+}
+
+function canScrollPanel( panel, direction ) {
+	if ( ! panel || panel.scrollHeight <= panel.clientHeight ) {
+		return false;
+	}
+
+	return direction < 0
+		? panel.scrollTop > SCROLL_TOLERANCE
+		: panel.scrollTop < panel.scrollHeight - panel.clientHeight - SCROLL_TOLERANCE;
+}
 
 function isInteractiveEvent( event ) {
 	return typeof event.target?.closest === 'function'
@@ -166,6 +182,20 @@ export function initSceneNavigation( transition ) {
 		return goToScene( targetScene.name );
 	};
 
+	const handleGesture = ( self, direction ) => {
+		if ( isInteractiveEvent( self.event ) ) {
+			return;
+		}
+
+		const panel = getContactPanel( self.event );
+
+		if ( canScrollPanel( panel, direction ) ) {
+			panel.scrollTop += direction * Math.abs( self.deltaY );
+			return;
+		}
+
+		moveBy( direction );
+	};
 	const observer = Observer.create( {
 		target: window,
 		type: 'wheel,touch',
@@ -173,16 +203,8 @@ export function initSceneNavigation( transition ) {
 		wheelSpeed: -1,
 		tolerance: 12,
 		preventDefault: true,
-		onUp: ( self ) => {
-			if ( ! isInteractiveEvent( self.event ) ) {
-				moveBy( 1 );
-			}
-		},
-		onDown: ( self ) => {
-			if ( ! isInteractiveEvent( self.event ) ) {
-				moveBy( -1 );
-			}
-		},
+		onUp: ( self ) => handleGesture( self, 1 ),
+		onDown: ( self ) => handleGesture( self, -1 ),
 	} );
 
 	const syncObserver = () => {
@@ -199,6 +221,10 @@ export function initSceneNavigation( transition ) {
 
 		const direction = getKeyboardDirection( event );
 
+		if ( direction && canScrollPanel( getContactPanel( event ), direction ) ) {
+			return;
+		}
+
 		if ( direction && moveBy( direction ) ) {
 			event.preventDefault();
 		}
@@ -206,6 +232,15 @@ export function initSceneNavigation( transition ) {
 
 	window.addEventListener( 'keydown', handleKeydown );
 	window.addEventListener( 'scroll', syncObserver, { passive: true } );
+	document.querySelector( '.site-header__contact[href="#contact"]' )?.addEventListener( 'click', ( event ) => {
+		if ( event.defaultPrevented || event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ) {
+			return;
+		}
+
+		if ( goToScene( 'contact', { force: true } ) ) {
+			event.preventDefault();
+		}
+	} );
 	syncObserver();
 
 	return { goToScene };
