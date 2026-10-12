@@ -146,6 +146,36 @@
 		}
 	}
 
+	&__links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+		margin-top: 1.25rem;
+	}
+
+	&__link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		max-width: 100%;
+		color: inherit;
+		font-weight: 700;
+		line-height: 1.5;
+		text-decoration: underline;
+		text-underline-offset: 0.3em;
+		overflow-wrap: anywhere;
+		pointer-events: auto;
+
+		&:hover {
+			text-decoration-thickness: 2px;
+		}
+
+		&:focus-visible {
+			outline: 2px solid currentcolor;
+			outline-offset: 4px;
+		}
+	}
+
 	&__detail {
 		position: absolute;
 		top: 50%;
