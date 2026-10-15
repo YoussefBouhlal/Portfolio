@@ -1,16 +1,28 @@
 @mixin mobile {
-    @media (max-width: 48rem) { @content; }
+
+	@media (max-width: 48rem) {
+		@content;
+	}
 }
 
 
 @mixin mobile-short {
-	@media (max-width: 48rem) and (max-height: 40rem) { @content; }
+
+	@media (max-width: 48rem) and (max-height: 40rem) {
+		@content;
+	}
 }
 
 @mixin tablet {
-    @media (min-width: 48.01rem) and (max-width: 64rem) { @content; }
+
+	@media (min-width: 48.01rem) and (max-width: 64rem) {
+		@content;
+	}
 }
 
 @mixin short-height {
-    @media (max-height: 42rem) and (max-width: 48rem) { @content; }
+
+	@media (max-height: 42rem) and (max-width: 48rem) {
+		@content;
+	}
 }

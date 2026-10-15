@@ -13,7 +13,7 @@
 
 	@include mobile {
 		grid-template-rows: minmax(0, 1fr);
-		padding: 13svh 6% 5svh;
+		padding: 13svh 6%;
 	}
 
 	&::before {
@@ -54,9 +54,10 @@
 		@include mobile {
 			grid-template-columns: minmax(0, 1fr);
 			align-content: start;
-			align-self: stretch;
+			align-self: center;
 			gap: 1.25rem;
 			min-height: 0;
+			max-height: 100%;
 			padding: 1.5rem;
 			overflow-y: auto;
 			overscroll-behavior: contain;
@@ -94,7 +95,7 @@
 	&__details {
 		min-width: 0;
 
-		h2 {
+		h3 {
 			display: inline-block;
 			margin: 0.45rem 0 0.8rem;
 			font-family: $font-heading;

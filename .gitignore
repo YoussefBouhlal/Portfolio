@@ -6,14 +6,20 @@
 # svn folder
 svn/
 
-# ZIP of a release build
-wpmastertoolkit.zip
-wpmastertoolkit-pro.zip
-wpmastertoolkit-v*.zip
-
 # Node artifact files
 node_modules/
 dist/
+
+# Local credentials and generated caches
+.env
+.env.*
+!.env.example
+.envrc
+.npmrc
+.cache/
+coverage/
+.vscode/
+_site/
 
 # Compiled Java class files
 *.class

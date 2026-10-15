@@ -4,6 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Portfolio of Youssef Bouhlal, a creative developer specializing in web interfaces and digital experiences.">
+	<link rel="canonical" href="https://youssefbouhlal.github.io/portfolio/">
+	<link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
+	<link rel="alternate icon" href="./img/favicon.ico" sizes="32x32">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Youssef Bouhlal - Creative Developer">
+	<meta property="og:description" content="Web interfaces, WordPress projects, and digital experiences by Youssef Bouhlal.">
+	<meta property="og:url" content="https://youssefbouhlal.github.io/portfolio/">
+	<meta property="og:image" content="https://youssefbouhlal.github.io/portfolio/img/og-image.png">
+	<meta property="og:image:alt" content="Youssef Bouhlal, creative developer and digital designer">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Youssef Bouhlal - Creative Developer">
+	<meta name="twitter:description" content="Web interfaces, WordPress projects, and digital experiences.">
+	<meta name="twitter:image" content="https://youssefbouhlal.github.io/portfolio/img/og-image.png">
+	<meta name="twitter:image:alt" content="Youssef Bouhlal, creative developer and digital designer">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
@@ -14,7 +30,7 @@
 	<a class="skip-link" href="#content">Skip to content</a>
 
 	<header class="site-header">
-		<span class="site-header__logo">
+		<span class="site-header__logo" aria-hidden="true">
 			<svg width="30px" height="30px" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248.7 271.2">
 				<circle class="site-header__logo-circle" fill="currentColor" cx="60.2" cy="213.3" r="56"/>
 				<polygon fill="currentColor" points="189.9,3.5 155.5,59.6 121.4,3.7 121.3,3.5 104.6,3.5 147.6,74.1 147.6,118.5 163.3,118.5 163.3,74.1 206.3,4 206.6,3.5"/>
@@ -25,13 +41,13 @@
 		<a class="site-header__contact" href="#contact">Let’s talk</a>
 	</header>
 
-	<main id="content">
+	<main id="content" tabindex="-1">
 		<div class="presentation">
 			<div class="circle" aria-hidden="true"></div>
 
 			<div class="box" aria-hidden="true"></div>
 
-			<section class="hero section" aria-labelledby="hero-title">
+			<section class="hero section" id="hero" tabindex="-1" aria-labelledby="hero-title">
 				<div class="hero__screen">
 					<div class="hero__slide">
 						<div class="hero__copy">
@@ -46,10 +62,14 @@
 				</div>
 			</section>
 
-			<section class="skills section" id="skills" aria-labelledby="skills-title">
+			<section class="skills section" id="skills" tabindex="-1" aria-labelledby="skills-title">
+				<div class="skills__title-band">
+					<h2 id="skills-title">My Skills</h2>
+				</div>
+
 				<div class="skills__grid">
 					<article class="skills-item">
-						<div class="skills-item__icon">
+						<div class="skills-item__icon" aria-hidden="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
 									<path d="m20 4l-2 14.5l-6 2l-6-2L4 4z"/>
@@ -62,17 +82,17 @@
 					</article>
 
 					<article class="skills-item">
-						<div class="skills-item__icon">
+						<div class="skills-item__icon" aria-hidden="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 								<path fill="currentColor" fill-rule="evenodd" d="M19.89 7.686A8.95 8.95 0 0 1 20.99 12a8.99 8.99 0 0 1-4.47 7.77l2.746-7.939c.513-1.282.684-2.308.684-3.22q-.002-.495-.06-.925m-6.651.098c.541-.028 1.029-.085 1.029-.085c.484-.057.427-.77-.057-.741c0 0-1.457.114-2.397.114c-.883 0-2.368-.114-2.368-.114c-.485-.028-.541.712-.057.74c0 0 .459.058.943.086l1.401 3.838l-1.968 5.901l-3.274-9.739c.542-.028 1.03-.085 1.03-.085c.483-.057.426-.77-.058-.741c0 0-1.456.114-2.396.114c-.17 0-.368-.004-.58-.01A8.98 8.98 0 0 1 12 3.008c2.34 0 4.472.895 6.071 2.36c-.039-.002-.076-.007-.116-.007c-.884 0-1.51.77-1.51 1.596c0 .74.427 1.368.883 2.109c.342.598.741 1.368.741 2.48c0 .769-.296 1.662-.684 2.906l-.897 2.996zm-1.24 13.207a9 9 0 0 1-2.54-.366l2.699-7.839l2.763 7.571q.027.067.064.124a9 9 0 0 1-2.985.51M3.01 12c0-1.304.28-2.541.779-3.66l4.288 11.751A8.99 8.99 0 0 1 3.01 12M12 2C6.487 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2"/>
 							</svg>
 						</div>
-						<h3>CMS & Back-End</h3>
+						<h3>CMS &amp; Back-End</h3>
 						<p>WordPress, PHP, MySQL, REST API</p>
 					</article>
 
 					<article class="skills-item">
-						<div class="skills-item__icon">
+						<div class="skills-item__icon" aria-hidden="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 								<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
 									<path d="M15 12a1 1 0 1 0 2 0a1 1 0 1 0-2 0m-4-4a1 1 0 1 0 2 0a1 1 0 1 0-2 0m0 8a1 1 0 1 0 2 0a1 1 0 1 0-2 0m1-1V9m3 2l-2-2m-2-2L9.1 5.1"/>
@@ -80,27 +100,23 @@
 								</g>
 							</svg>
 						</div>
-						<h3>Tools & Platforms</h3>
+						<h3>Tools &amp; Platforms</h3>
 						<p>Git, Composer, WebPack, NPM</p>
 					</article>
 
 					<article class="skills-item">
-						<div class="skills-item__icon">
+						<div class="skills-item__icon" aria-hidden="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
 								<path fill="currentColor" d="M5.125 20q-.55 0-1.012-.238t-.738-.712Q2.7 17.9 2.35 16.625T2.025 14q0-2.35 1.038-4.437T5.975 6.05L6.5 8.225Q5.3 9.35 4.663 10.85T4.025 14q0 1.05.275 2.075T5.125 18H18.9q.525-.925.813-1.937T20 14q0-3.35-2.325-5.675T12 6q-.25 0-.488.012t-.487.063L9.7 4.275q.575-.125 1.15-.2T12 4q2.075 0 3.9.788t3.175 2.137t2.138 3.175T22 14q0 1.35-.35 2.613t-1 2.437q-.275.475-.737.713T18.9 20zm7.7-4.2q.85-.375 1.15-1.225t-.2-1.575q-1.45-2.075-2.937-4.075T7.775 4.95q.475 2.475 1.063 4.9t1.312 4.85q.25.825 1.063 1.138t1.612-.038m-.8-1.825"/>
 							</svg>
 						</div>
-						<h3>Quality & Delivery</h3>
+						<h3>Quality &amp; Delivery</h3>
 						<p>Testing, Accessibility, Performance</p>
 					</article>
 				</div>
-
-				<div class="skills__title-band">
-					<h2 id="skills-title">My Skills</h2>
-				</div>
 			</section>
 
-			<section class="about section" id="about" aria-labelledby="about-title">
+			<section class="about section" id="about" tabindex="-1" aria-labelledby="about-title">
 				<div class="about__portrait-card">
 					<img
 						class="about__portrait"
@@ -117,12 +133,12 @@
 					<h2 class="about__title" id="about-title">Welcome</h2>
 					<div class="about__copy">
 						<h3>About Me</h3>
-						<p>I'am a passionate WordPress developer dedicated to continuous improvement. I'am always learning, refining my skills, developing new solutions, and growing professionally.</p>
+						<p>I'm a passionate WordPress developer dedicated to continuous improvement. I'm always learning, refining my skills, developing new solutions, and growing professionally.</p>
 					</div>
 				</div>
 			</section>
 
-			<section class="projects section" id="projects" aria-labelledby="projects-title">
+			<section class="projects section" id="projects" tabindex="-1" aria-labelledby="projects-title">
 				<div class="projects__content">
 					<h2 class="projects__title" id="projects-title">My<br>Projects</h2>
 					<div class="projects__copy">
@@ -140,7 +156,7 @@
 
 				<div class="projects__detail-stage" aria-hidden="true"></div>
 
-				<article class="projects__detail" aria-labelledby="project-youbou-code-block-title">
+				<article class="projects__detail" id="project-youbou-code-block" tabindex="-1" aria-labelledby="project-youbou-code-block-title">
 					<h3 id="project-youbou-code-block-title">Youbou Code Block</h3>
 					<p class="projects__detail-category">WordPress Plugin</p>
 					<p>Youbou Code Block adds colors to help readers understand code, shows line numbers, and lets visitors copy a whole example with one button.</p>
@@ -150,7 +166,7 @@
 					</div>
 				</article>
 
-				<article class="projects__detail" aria-labelledby="project-webpify-title">
+				<article class="projects__detail" id="project-webpify" tabindex="-1" aria-labelledby="project-webpify-title">
 					<h3 id="project-webpify-title">WebPify</h3>
 					<p class="projects__detail-category">WordPress Plugin</p>
 					<p>WebPify is a WordPress plugin that converts JPEG and PNG images to WebP or AVIF and can serve those optimized files to compatible browsers without changing image URLs in themes or post content.</p>
@@ -159,7 +175,7 @@
 					</div>
 				</article>
 
-				<article class="projects__detail" aria-labelledby="project-youbou-blocks-title">
+				<article class="projects__detail" id="project-youbou-blocks" tabindex="-1" aria-labelledby="project-youbou-blocks-title">
 					<h3 id="project-youbou-blocks-title">Youbou Blocks</h3>
 					<p class="projects__detail-category">WordPress Theme</p>
 					<p>A simple, reading-focused WordPress theme for personal blogs, articles, and tutorials.</p>
@@ -167,8 +183,8 @@
 						<a class="projects__link" href="https://github.com/YoussefBouhlal/youboublocks" target="_blank" rel="noopener noreferrer" aria-label="Youbou Blocks on GitHub (opens in a new tab)">GitHub</a>
 					</div>
 				</article>
-				
-				<article class="projects__detail" aria-labelledby="project-myshop-title">
+
+				<article class="projects__detail" id="project-myshop" tabindex="-1" aria-labelledby="project-myshop-title">
 					<h3 id="project-myshop-title">My Shop</h3>
 					<p class="projects__detail-category">React Application</p>
 					<p>My Shop is a practice online store. You can browse products, search for something you like, add items to a cart, and try a sample checkout.</p>
@@ -179,8 +195,9 @@
 				</article>
 			</section>
 
-			<section class="contact section" id="contact" aria-label="Contact information">
-				<address class="contact__panel" tabindex="0" aria-label="Contact details">
+			<section class="contact section" id="contact" tabindex="-1" aria-labelledby="contact-title">
+				<h2 class="visually-hidden" id="contact-title">Contact information</h2>
+				<div class="contact__panel" role="group" tabindex="0" aria-label="Contact details">
 					<div class="contact__item">
 						<span class="contact__icon" aria-hidden="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -188,7 +205,7 @@
 							</svg>
 						</span>
 						<div class="contact__details">
-							<h2><a href="mailto:pro.youssef.bouhlal@gmail.com">Email</a></h2>
+							<h3><a href="mailto:pro.youssef.bouhlal@gmail.com">Email</a></h3>
 							<p>Projects, collaborations, or just a hello.</p>
 						</div>
 					</div>
@@ -199,7 +216,7 @@
 							</svg>
 						</span>
 						<div class="contact__details">
-							<h2><a href="https://www.linkedin.com/in/youssef-bouhlal-7a38b4198" target="_blank" rel="noopener noreferrer">LinkedIn</a></h2>
+							<h3><a href="https://www.linkedin.com/in/youssef-bouhlal-7a38b4198" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)">LinkedIn</a></h3>
 							<p>Professional connections and new opportunities.</p>
 						</div>
 					</div>
@@ -210,7 +227,7 @@
 							</svg>
 						</span>
 						<div class="contact__details">
-							<h2><a href="https://github.com/YoussefBouhlal" target="_blank" rel="noopener noreferrer">GitHub</a></h2>
+							<h3><a href="https://github.com/YoussefBouhlal" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">GitHub</a></h3>
 							<p>Code, experiments, and open-source work.</p>
 						</div>
 					</div>
@@ -221,16 +238,16 @@
 							</svg>
 						</span>
 						<div class="contact__details">
-							<h2><a href="https://x.com/you_bouhlal" target="_blank" rel="noopener noreferrer">X (formerly Twitter)</a></h2>
+							<h3><a href="https://x.com/you_bouhlal" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter) (opens in a new tab)">X (formerly Twitter)</a></h3>
 							<p>Thoughts on development, design, and the web.</p>
 						</div>
 					</div>
-				</address>
+				</div>
 			</section>
 
 		</div>
 	</main>
 
-	<script src="./build/main.js"></script>
+	<script src="./build/main.js" defer></script>
 </body>
 </html>

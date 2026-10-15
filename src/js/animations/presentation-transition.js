@@ -30,8 +30,7 @@ function getRelativeBounds( element, ancestor ) {
 	};
 }
 
-export function initPresentationTransition() {
-	
+export function initPresentationTransition( initialTarget ) {
 	const presentation = document.querySelector( '.presentation' );
 	if ( ! presentation ) {
 		return;
@@ -42,49 +41,61 @@ export function initPresentationTransition() {
 	const logoCircle = document.querySelector( '.site-header__logo-circle' );
 
 	const circle = presentation.querySelector( '.circle' );
-	const box    = presentation.querySelector( '.box' );
+	const box = presentation.querySelector( '.box' );
 
-	const heroSection     = presentation.querySelector( '.hero' );
-	const heroSlide       = presentation.querySelector( '.hero__slide' );
-	const heroCopy        = presentation.querySelector( '.hero__copy' );
+	const heroSection = presentation.querySelector( '.hero' );
+	const heroSlide = presentation.querySelector( '.hero__slide' );
+	const heroCopy = presentation.querySelector( '.hero__copy' );
 	const heroSlideStyles = window.getComputedStyle( heroSlide );
-	const heroBoxShadow   = heroSlideStyles.boxShadow;
-	
-	const skills                = presentation.querySelector( '.skills' );
-	const skillsTitleBand       = presentation.querySelector( '.skills__title-band' );
-	const skillsItems           = gsap.utils.toArray( '.skills-item' );
+	const heroBoxShadow = heroSlideStyles.boxShadow;
+
+	const skills = presentation.querySelector( '.skills' );
+	const skillsTitleBand = presentation.querySelector( '.skills__title-band' );
+	const skillsItems = gsap.utils.toArray( '.skills-item' );
 	const skillsTitleBandStyles = window.getComputedStyle( skillsTitleBand );
-	const skillsBoxShadow       = skillsTitleBandStyles.boxShadow;
+	const skillsBoxShadow = skillsTitleBandStyles.boxShadow;
 
-	const aboutSection            = presentation.querySelector( '.about' );
-	const aboutPortrait           = presentation.querySelector( '.about__portrait' );
-	const aboutPortraitCard       = presentation.querySelector( '.about__portrait-card' );
-	const aboutTitle              = presentation.querySelector( '.about__title' );
-	const aboutCopy               = presentation.querySelector( '.about__copy' );
-	const aboutPortraitCardStyles = window.getComputedStyle( aboutPortraitCard );
-	const aboutBoxShadow          = aboutPortraitCardStyles.boxShadow;
+	const aboutSection = presentation.querySelector( '.about' );
+	const aboutPortrait = presentation.querySelector( '.about__portrait' );
+	const aboutPortraitCard = presentation.querySelector(
+		'.about__portrait-card'
+	);
+	const aboutTitle = presentation.querySelector( '.about__title' );
+	const aboutCopy = presentation.querySelector( '.about__copy' );
+	const aboutPortraitCardStyles =
+		window.getComputedStyle( aboutPortraitCard );
+	const aboutBoxShadow = aboutPortraitCardStyles.boxShadow;
 
-	const projectsSection     = presentation.querySelector( '.projects' );
-	const projectsStack       = presentation.querySelector( '.projects__stack' );
-	const projectsContent     = presentation.querySelector( '.projects__content' );
-	const projectStage        = presentation.querySelector( '.projects__detail-stage' );
-	const projectDetails      = gsap.utils.toArray( '.projects__detail', presentation );
-	const projectsImages      = gsap.utils.toArray( '.projects__image', presentation );
+	const projectsSection = presentation.querySelector( '.projects' );
+	const projectsStack = presentation.querySelector( '.projects__stack' );
+	const projectsContent = presentation.querySelector( '.projects__content' );
+	const projectStage = presentation.querySelector(
+		'.projects__detail-stage'
+	);
+	const projectDetails = gsap.utils.toArray(
+		'.projects__detail',
+		presentation
+	);
+	const projectsImages = gsap.utils.toArray(
+		'.projects__image',
+		presentation
+	);
 	const projectsStackStyles = window.getComputedStyle( projectsStack );
-	const projectStageStyles  = window.getComputedStyle( projectStage );
-	const projectsBoxShadow   = projectsStackStyles.boxShadow;
+	const projectStageStyles = window.getComputedStyle( projectStage );
+	const projectsBoxShadow = projectsStackStyles.boxShadow;
 
-	const contactSection     = presentation.querySelector( '.contact' );
-	const contactPanel       = presentation.querySelector( '.contact__panel' );
-	const contactContent     = gsap.utils.toArray( '.contact__item', presentation );
+	const contactSection = presentation.querySelector( '.contact' );
+	const contactPanel = presentation.querySelector( '.contact__panel' );
+	const contactContent = gsap.utils.toArray( '.contact__item', presentation );
 	const contactPanelStyles = window.getComputedStyle( contactPanel );
-	const contactBoxShadow   = contactPanelStyles.boxShadow;
-	const contactStart       = 7.3 + projectsImages.length * 2.3;
+	const contactBoxShadow = contactPanelStyles.boxShadow;
+	const contactStart = 7.3 + projectsImages.length * 2.3;
 
 	gsap.registerPlugin( ScrollTrigger );
 
 	// Initial setup for the presentation transition.
-	const getInitialCircleDiameter = Math.max( window.innerWidth, window.innerHeight ) * 1.2;
+	const getInitialCircleDiameter =
+		Math.max( window.innerWidth, window.innerHeight ) * 1.2;
 	const circleInitialSetup = {
 		x: () => window.innerWidth * 0.2,
 		y: () => ( window.innerHeight - getInitialCircleDiameter ) / 2,
@@ -117,12 +128,10 @@ export function initPresentationTransition() {
 	gsap.set( projectsSection, { autoAlpha: 0 } );
 	gsap.set( projectDetails, { autoAlpha: 0 } );
 	gsap.set( projectsContent, { autoAlpha: 0, x: -32 } );
-	gsap.set( projectsImages, { autoAlpha: 0, y: 64, scale: 0.9, } );
+	gsap.set( projectsImages, { autoAlpha: 0, y: 64, scale: 0.9 } );
 	gsap.set( contactSection, { autoAlpha: 0 } );
 	gsap.set( contactContent, { autoAlpha: 0, y: 24 } );
 
-	document.documentElement.classList.add( 'has-scroll-animation' );
-	
 	// Initialize the presentation transition timeline.
 	const transition = gsap.timeline( {
 		defaults: { ease: 'none' },
@@ -139,11 +148,7 @@ export function initPresentationTransition() {
 
 	// Circle.
 	transition
-		.set(
-			circle,
-			circleInitialSetup,
-			0
-		)
+		.set( circle, circleInitialSetup, 0 )
 		.to(
 			circle,
 			{
@@ -210,15 +215,26 @@ export function initPresentationTransition() {
 			},
 			7.3
 		)
-		.to( circle, {
-			x: () => window.innerWidth * ( window.matchMedia( '(max-width: 48rem)' ).matches ? 0.3 : 0.42 ),
-			y: () => -Math.max( window.innerWidth, window.innerHeight ) * 0.12,
-			width: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
-			height: () => Math.max( window.innerWidth, window.innerHeight ) * 1.2,
-			backgroundColor: '#e4e9ee',
-			duration: 1.5,
-			ease: 'power2.inOut',
-		}, contactStart );
+		.to(
+			circle,
+			{
+				x: () =>
+					window.innerWidth *
+					( window.matchMedia( '(max-width: 48rem)' ).matches
+						? 0.3
+						: 0.42 ),
+				y: () =>
+					-Math.max( window.innerWidth, window.innerHeight ) * 0.12,
+				width: () =>
+					Math.max( window.innerWidth, window.innerHeight ) * 1.2,
+				height: () =>
+					Math.max( window.innerWidth, window.innerHeight ) * 1.2,
+				backgroundColor: '#e4e9ee',
+				duration: 1.5,
+				ease: 'power2.inOut',
+			},
+			contactStart
+		);
 
 	// Box.
 	transition
@@ -245,7 +261,8 @@ export function initPresentationTransition() {
 			{
 				x: () => getRelativeBounds( skillsTitleBand, presentation ).x,
 				y: () => getRelativeBounds( skillsTitleBand, presentation ).y,
-				width: () => getRelativeBounds( skillsTitleBand, presentation ).width,
+				width: () =>
+					getRelativeBounds( skillsTitleBand, presentation ).width,
 				height: () =>
 					getRelativeBounds( skillsTitleBand, presentation ).height,
 				'--box-overlay-opacity': 0,
@@ -266,7 +283,8 @@ export function initPresentationTransition() {
 			{
 				x: () => getRelativeBounds( aboutPortraitCard, presentation ).x,
 				y: () => getRelativeBounds( aboutPortraitCard, presentation ).y,
-				width: () => getRelativeBounds( aboutPortraitCard, presentation ).width,
+				width: () =>
+					getRelativeBounds( aboutPortraitCard, presentation ).width,
 				height: () =>
 					getRelativeBounds( aboutPortraitCard, presentation ).height,
 				borderRadius: () =>
@@ -309,18 +327,25 @@ export function initPresentationTransition() {
 			},
 			7.3
 		)
-		.to( box, {
-			x: () => getRelativeBounds( contactPanel, presentation ).x,
-			y: () => getRelativeBounds( contactPanel, presentation ).y,
-			width: () => getRelativeBounds( contactPanel, presentation ).width,
-			height: () => getRelativeBounds( contactPanel, presentation ).height,
-			borderRadius: () => window.getComputedStyle( contactPanel ).borderRadius,
-			backgroundColor: '#f8f8f7',
-			boxShadow: contactBoxShadow,
-			rotation: 0,
-			duration: 1.5,
-			ease: 'power2.inOut',
-		}, contactStart );
+		.to(
+			box,
+			{
+				x: () => getRelativeBounds( contactPanel, presentation ).x,
+				y: () => getRelativeBounds( contactPanel, presentation ).y,
+				width: () =>
+					getRelativeBounds( contactPanel, presentation ).width,
+				height: () =>
+					getRelativeBounds( contactPanel, presentation ).height,
+				borderRadius: () =>
+					window.getComputedStyle( contactPanel ).borderRadius,
+				backgroundColor: '#f8f8f7',
+				boxShadow: contactBoxShadow,
+				rotation: 0,
+				duration: 1.5,
+				ease: 'power2.inOut',
+			},
+			contactStart
+		);
 
 	// Hero.
 	transition
@@ -432,7 +457,11 @@ export function initPresentationTransition() {
 		.addLabel( 'projects', 7.05 )
 		.set( projectsSection, { pointerEvents: 'auto' }, 7.05 )
 		.to( projectsContent, { autoAlpha: 0, duration: 0.4 }, 7.3 )
-		.to( projectDetails[ projectDetails.length - 1 ], { autoAlpha: 0, duration: 0.3 }, contactStart )
+		.to(
+			projectDetails[ projectDetails.length - 1 ],
+			{ autoAlpha: 0, duration: 0.3 },
+			contactStart
+		)
 		.set( projectsSection, { pointerEvents: 'none' }, contactStart + 0.3 )
 		.set( projectsSection, { autoAlpha: 0 }, contactStart + 1.5 );
 
@@ -448,7 +477,7 @@ export function initPresentationTransition() {
 
 	// Project image.
 	projectsImages.forEach( ( image, index ) => {
-		const sceneStart    = 7.3 + index * 2.3;
+		const sceneStart = 7.3 + index * 2.3;
 		const previousImage = projectsImages[ index - 1 ];
 
 		if ( index === 0 ) {
@@ -515,26 +544,37 @@ export function initPresentationTransition() {
 			.set( image, { autoAlpha: 1 }, sceneStart + 1.8 )
 			.addLabel( `project-${ index + 1 }`, sceneStart + 1.8 );
 	} );
-	transition
-		.to( projectsImages[ projectsImages.length - 1 ], {
-			x: () => getOffscreenImageX( projectsImages[ projectsImages.length - 1 ] ),
+	transition.to(
+		projectsImages[ projectsImages.length - 1 ],
+		{
+			x: () =>
+				getOffscreenImageX(
+					projectsImages[ projectsImages.length - 1 ]
+				),
 			autoAlpha: 0,
 			duration: 1.5,
 			ease: 'power2.inOut',
-		}, contactStart );
+		},
+		contactStart
+	);
 
 	// Contact.
 	transition
 		.set( contactSection, { autoAlpha: 1 }, contactStart )
-		.to( contactContent, {
-			autoAlpha: 1,
-			y: 0,
-			duration: 0.6,
-			stagger: 0.08,
-			ease: 'power2.out',
-		}, contactStart + 0.85 )
+		.to(
+			contactContent,
+			{
+				autoAlpha: 1,
+				y: 0,
+				duration: 0.6,
+				stagger: 0.08,
+				ease: 'power2.out',
+			},
+			contactStart + 0.85
+		)
 		.set( contactSection, { pointerEvents: 'auto' }, contactStart + 1.8 )
 		.addLabel( 'contact', contactStart + 1.8 );
 
-	initSceneNavigation( transition );
+	ScrollTrigger.refresh();
+	return initSceneNavigation( transition, initialTarget );
 }
