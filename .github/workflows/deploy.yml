@@ -41,7 +41,7 @@ jobs:
           mkdir -p _site/build _site/img/projects
           cp index.html _site/
           find "$RUNNER_TEMP/portfolio-build" -maxdepth 1 -type f \( -name '*.js' -o -name '*.css' -o -name '*.LICENSE.txt' \) -exec cp {} _site/build/ \;
-          cp img/about.webp img/favicon.svg img/favicon.ico img/og-image.png _site/img/
+          cp img/about.webp img/favicon.svg img/favicon.ico img/og-image.jpg _site/img/
           cp img/projects/youbou-code-block-plugin.webp img/projects/webpify-plugin.webp img/projects/youbou-blocks-theme.webp img/projects/react-store.webp _site/img/projects/
           cp LICENSE ASSET-LICENSES.md _site/
           test -s _site/build/main.js
