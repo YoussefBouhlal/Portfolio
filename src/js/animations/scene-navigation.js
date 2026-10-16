@@ -4,6 +4,8 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 const INTERACTIVE_SELECTOR =
 	'a, button, input, select, textarea, [contenteditable="true"]';
+const GESTURE_IGNORE_SELECTOR =
+	'button, input, select, textarea, [contenteditable="true"]';
 const SETTLE_TOLERANCE = 0.005;
 const SCROLL_TOLERANCE = 2;
 
@@ -281,7 +283,7 @@ export function initSceneNavigation( transition, initialTarget ) {
 		if (
 			self.event.ctrlKey ||
 			self.event.touches?.length > 1 ||
-			isInteractiveEvent( self.event )
+			self.event.target?.closest?.( GESTURE_IGNORE_SELECTOR )
 		) {
 			return;
 		}
@@ -298,7 +300,9 @@ export function initSceneNavigation( transition, initialTarget ) {
 	const observer = Observer.create( {
 		target: window,
 		type: 'wheel,touch',
-		ignore: INTERACTIVE_SELECTOR,
+		ignore: GESTURE_IGNORE_SELECTOR,
+		allowClicks: true,
+		dragMinimum: 6,
 		wheelSpeed: -1,
 		tolerance: 12,
 		preventDefault: true,
