@@ -2,7 +2,9 @@
 
 A static portfolio built with HTML, SCSS, and GSAP. WordPress scripts compile the assets; WordPress, PHP, and a database are not required to run the site.
 
-Intended public address: https://youssefbouhlal.github.io/Portfolio/
+Intended public address: http://youssefbouhlal.com/
+
+The custom domain and its DNS must also be configured with the hosting provider; changing the URLs in this repository does not change those settings.
 
 ![Portfolio social preview: Youssef Bouhlal, creative developer and digital designer](img/og-image.jpg)
 
