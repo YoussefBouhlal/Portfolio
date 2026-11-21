@@ -48,6 +48,36 @@ jobs:
           test -s _site/build/main.css
           grep -q 'Copyright' _site/build/main.js
           grep -q 'gsap.com' _site/build/main.js
+      - name: Add production Google Analytics
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.PUBLICATION_APPROVED == 'true'
+        env:
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const measurementId = process.env.GA_MEASUREMENT_ID || '';
+          if (!measurementId) {
+            console.log('GA_MEASUREMENT_ID is unset; Analytics is disabled.');
+            process.exit(0);
+          }
+          if (!/^G-[A-Z0-9]{10}$/.test(measurementId)) {
+            throw new Error('GA_MEASUREMENT_ID must be G- followed by 10 uppercase letters or digits.');
+          }
+          const file = '_site/index.html';
+          const html = fs.readFileSync(file, 'utf8');
+          if (html.split('<head>').length !== 2 || html.includes('googletagmanager.com/')) {
+            throw new Error('Expected one <head> and no existing Google tag in the staged HTML.');
+          }
+          const tag = `
+          <script async src="https://www.googletagmanager.com/gtag/js?id=${measurementId}"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${measurementId}');
+          </script>`;
+          fs.writeFileSync(file, html.replace('<head>', () => '<head>' + tag));
+          NODE
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b
         with:
